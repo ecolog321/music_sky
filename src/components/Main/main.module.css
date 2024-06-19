@@ -12,6 +12,8 @@
   position: relative;
   background-color: #181818;
   overflow: auto;
+  display: flex;
+  align-items: center;
 }
 
 .main {
