@@ -16,6 +16,8 @@ export const CenterBlock = () => {
   const [tracks, setTracks] = useState<TrackType[]>([]);
   const [authors, setAuthors] = useState<any[]>([]);
 
+  
+
   const toogleAuthors = () => Array.from(new Set(tracks.map((track) => track.author)));
 ;
 
@@ -25,7 +27,7 @@ export const CenterBlock = () => {
     getTracks()
       .then((data) => setTracks(data))
       .catch((err) => alert(err.message));
-  }, [<Filter/>]);
+  }, [filterValue]);
 
   useEffect(() => {
     setAuthors(toogleAuthors());

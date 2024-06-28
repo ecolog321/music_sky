@@ -1,0 +1,16 @@
+.filter__block {
+    background-color:#181818;
+    gap: 20px;
+}
+
+.filter__items {
+    color:#ffffff;
+}
+
+.filter__list {
+    background:#313131;
+    border-radius: 12px;
+    padding: 15px;
+    gap:10px;
+    margin-top: 5px;
+}

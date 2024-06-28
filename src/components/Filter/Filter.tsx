@@ -2,6 +2,8 @@
 
 import { FC } from "react";
 import sharedStyles from "../shared.module.css";
+import styles from './Filter.module.css'
+import clsx from "clsx";
 
 type Props = {
     title:string,
@@ -13,17 +15,17 @@ type Props = {
 
 export const Filter:FC<Props> = ({ isOpen, value, onClick, title, list }) => {
   return (
-    <div>
+    <div className={styles.filter__block}>
       <button
-        className={sharedStyles.filter__button}
+        className={clsx(sharedStyles.filter__button, isOpen && sharedStyles.filter__button_open)}
         onClick={() => onClick(value)}
       >
         {title}
       </button>
       {isOpen && (
-        <ul className={sharedStyles.filter__button}>
+        <ul className={styles.filter__list}>
           {list.map((item: string, id: number) => {
-            return <li key={id}>{item}</li>;
+            return <li className={styles.filter__items} key={id}>{item}</li>;
           })}
         </ul>
       )}
