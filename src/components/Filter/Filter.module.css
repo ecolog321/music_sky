@@ -5,6 +5,7 @@
 
 .filter__items {
     color:#ffffff;
+    
 }
 
 .filter__list {
@@ -12,5 +13,8 @@
     border-radius: 12px;
     padding: 15px;
     gap:10px;
-    margin-top: 5px;
+    margin-top: 15px;
+    position: absolute;
+    z-index: 15;
+    width: 200px;
 }

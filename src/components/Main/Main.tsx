@@ -13,10 +13,10 @@ export const Main = async () => {
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <main className={styles.main}>
-          <Nav></Nav>
-          <CenterBlock></CenterBlock>
-          <Sidebar></Sidebar>
-          <Player></Player>
+          <Nav/>
+          <CenterBlock/>
+          <Sidebar/>
+          <Player/>
         </main>
       </div>
     </div>

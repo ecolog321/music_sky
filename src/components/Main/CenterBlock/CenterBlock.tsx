@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import Image from "next/image";
@@ -14,15 +15,20 @@ import { useEffect, useState } from "react";
 export const CenterBlock = () => {
   const [filterValue, setFilterValue] = useState<string | null>(null);
   const [tracks, setTracks] = useState<TrackType[]>([]);
-  const [authors, setAuthors] = useState<any[]>([]);
+  const [authors, setAuthors] = useState<string[]>([]);
+  const [release, setRelease] = useState<string[]>([]);
+  const [genre, setGenre] = useState<string[]>([]);
 
-  
+  const toogleAuthors = () =>
+    Array.from(new Set(tracks.map((track) => track.author)));
+  useEffect(() => {
+    getTracks()
+      .then((data) => setTracks(data))
+      .catch((err) => alert(err.message));
+  }, [filterValue]);
 
-  const toogleAuthors = () => Array.from(new Set(tracks.map((track) => track.author)));
-;
-
-  console.log(authors);
-
+  const toogleGenre = () =>
+    Array.from(new Set(tracks.map((track) => track.genre)));
   useEffect(() => {
     getTracks()
       .then((data) => setTracks(data))
@@ -31,6 +37,10 @@ export const CenterBlock = () => {
 
   useEffect(() => {
     setAuthors(toogleAuthors());
+  }, [tracks]);
+
+  useEffect(() => {
+    setGenre(toogleGenre());
   }, [tracks]);
 
   const changeFilterValue = (value: string) => {
@@ -58,7 +68,7 @@ export const CenterBlock = () => {
             isOpen={filterValue === item.value}
             value={item.value}
             title={item.title}
-            list={item.list}
+            list={}
             key={item.value}
             onClick={changeFilterValue}
           ></Filter>
