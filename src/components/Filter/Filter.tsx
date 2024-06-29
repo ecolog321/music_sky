@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactEventHandler, useState } from "react";
+import { useState } from "react";
 import { FC } from "react";
 import sharedStyles from "../shared.module.css";
 import styles from "./Filter.module.css";
@@ -19,7 +19,7 @@ export const Filter: FC<Props> = ({ isOpen, value, onClick, title, list }) => {
 
   const changePickItem = (value: string) => {
     setIsPick((prev) => (prev === value ? null : value));
-    console.log(isPick)
+    console.log(isPick);
   };
 
   return (
@@ -39,8 +39,9 @@ export const Filter: FC<Props> = ({ isOpen, value, onClick, title, list }) => {
             return (
               <li
                 className={clsx(
-                  styles.filter__items,
-                  isPick===item && styles.filre__items_pick
+                  isPick === item
+                    ? styles.filter__items
+                    : styles.filre__items_pick
                 )}
                 key={id}
                 onClick={() => {

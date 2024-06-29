@@ -18,6 +18,7 @@ export const CenterBlock = () => {
   const [authors, setAuthors] = useState<string[]>([]);
   const [release, setRelease] = useState<string[]>([]);
   const [genre, setGenre] = useState<string[]>([]);
+  const [currentFilter, setCurrentFilter] = useState<string[]>([]);
 
   const toogleAuthors = () =>
     Array.from(new Set(tracks.map((track) => track.author)));
@@ -35,16 +36,38 @@ export const CenterBlock = () => {
       .catch((err) => alert(err.message));
   }, [filterValue]);
 
+  const toogleRelease = () =>
+    Array.from(new Set(tracks.map((track) => track.release_date)));
   useEffect(() => {
-    setAuthors(toogleAuthors());
-  }, [tracks]);
+    getTracks()
+      .then((data) => setTracks(data))
+      .catch((err) => alert(err.message));
+  }, [filterValue]);
 
   useEffect(() => {
+    setAuthors(toogleAuthors());
     setGenre(toogleGenre());
+    setRelease(toogleRelease());
   }, [tracks]);
 
   const changeFilterValue = (value: string) => {
+    console.log(value);
     setFilterValue((prev) => (prev === value ? null : value));
+
+    switch (value) {
+      case "author":
+        setCurrentFilter(authors);
+        break;
+      case "genre":
+        setCurrentFilter(genre);
+        break;
+      case "release_date":
+        setCurrentFilter(release);
+        break;
+
+      default:
+        break;
+    }
   };
 
   return (
@@ -68,7 +91,7 @@ export const CenterBlock = () => {
             isOpen={filterValue === item.value}
             value={item.value}
             title={item.title}
-            list={item.list}
+            list={currentFilter}
             key={item.value}
             onClick={changeFilterValue}
           ></Filter>
@@ -76,24 +99,16 @@ export const CenterBlock = () => {
       </div>
       <div className={styles.centerblock__content}>
         <div className={styles.content__title}>
-          <div
-            className={clsx(styles.playlist_title__col, sharedStyles.col01)}
-          >
+          <div className={clsx(styles.playlist_title__col, sharedStyles.col01)}>
             Трек
           </div>
-          <div
-            className={clsx(styles.playlist_title__col, sharedStyles.col02)}
-          >
+          <div className={clsx(styles.playlist_title__col, sharedStyles.col02)}>
             Исполнитель
           </div>
-          <div
-            className={clsx(styles.playlist_title__col, sharedStyles.col03)}
-          >
+          <div className={clsx(styles.playlist_title__col, sharedStyles.col03)}>
             Альбом
           </div>
-          <div
-            className={clsx(styles.playlist_title__col, sharedStyles.col04)}
-          >
+          <div className={clsx(styles.playlist_title__col, sharedStyles.col04)}>
             <Image
               src="/img/icons/watch.svg"
               height={12}
