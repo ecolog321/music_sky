@@ -8,6 +8,12 @@
     
 }
 
+.filter__items {
+    color:#B672FF;
+    text-decoration: underline;
+    
+}
+
 .filter__list {
     background:#313131;
     border-radius: 12px;

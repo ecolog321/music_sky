@@ -68,7 +68,7 @@ export const CenterBlock = () => {
             isOpen={filterValue === item.value}
             value={item.value}
             title={item.title}
-            list={}
+            list={item.list}
             key={item.value}
             onClick={changeFilterValue}
           ></Filter>
