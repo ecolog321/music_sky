@@ -1,4 +1,6 @@
-import { useState } from "react";
+"use client";
+
+import { ReactEventHandler, useState } from "react";
 import { FC } from "react";
 import sharedStyles from "../shared.module.css";
 import styles from "./Filter.module.css";
@@ -13,10 +15,11 @@ type Props = {
 };
 
 export const Filter: FC<Props> = ({ isOpen, value, onClick, title, list }) => {
-  const [picked, setPicked] = useState<string | null>(null);
+  const [isPick, setIsPick] = useState<string | null>(null);
 
-  const pickItem = (event:any) => {
-    setPicked(event.target.value);
+  const changePickItem = (value: string) => {
+    setIsPick((prev) => (prev === value ? null : value));
+    console.log(isPick)
   };
 
   return (
@@ -35,9 +38,14 @@ export const Filter: FC<Props> = ({ isOpen, value, onClick, title, list }) => {
           {list.map((item: string, id: number) => {
             return (
               <li
-                className={clsx(styles.filter__items, picked && styles.filre__items_pick)}
-                onClick={()=>pickItem(item)}
+                className={clsx(
+                  styles.filter__items,
+                  isPick===item && styles.filre__items_pick
+                )}
                 key={id}
+                onClick={() => {
+                  changePickItem(item);
+                }}
               >
                 {item}
               </li>

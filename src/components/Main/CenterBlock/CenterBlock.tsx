@@ -77,22 +77,22 @@ export const CenterBlock = () => {
       <div className={styles.centerblock__content}>
         <div className={styles.content__title}>
           <div
-            className={clsx("styles.playlist_title__col", "sharedStyles.col01")}
+            className={clsx(styles.playlist_title__col, sharedStyles.col01)}
           >
             Трек
           </div>
           <div
-            className={clsx("styles.playlist_title__col", "sharedStyles.col02")}
+            className={clsx(styles.playlist_title__col, sharedStyles.col02)}
           >
             Исполнитель
           </div>
           <div
-            className={clsx("styles.playlist_title__col", "sharedStyles.col03")}
+            className={clsx(styles.playlist_title__col, sharedStyles.col03)}
           >
             Альбом
           </div>
           <div
-            className={clsx("styles.playlist_title__col", "sharedStyles.col04")}
+            className={clsx(styles.playlist_title__col, sharedStyles.col04)}
           >
             <Image
               src="/img/icons/watch.svg"

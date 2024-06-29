@@ -1,17 +1,17 @@
 export const filterData = [
   {
     title: "исполнителю",
-    list: ['1', '2', '3'],
+    list: ['Первый', 'Второй', 'Третий'],
     value: "author",
   },
   {
     title: "году выпуска",
-    list: ['1', '2', '3'],
+    list: ['1955', '1456', '2011'],
     value: "release",
   },
   {
     title: "жанру",
-    list: ['1', '2', '3'],
+    list: ['рок', 'классика', 'поп'],
     value: "genre",
   },
 ];
