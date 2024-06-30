@@ -1,5 +1,5 @@
 .main__sidebar {
-  max-width: 418px;
+  max-width: 100%;
   padding: 20px 90px 20px 78px;
 }
 
@@ -18,6 +18,9 @@
     -ms-flex-pack: end;
     justify-content: flex-end;
     padding: 12px 0 15px 0;
+    position: absolute;
+    top: 15px;
+    right: 15px;
   }
   
   .sidebar__personal_name {
@@ -39,7 +42,8 @@
   
   .sidebar__block {
     height: 100%;
-    padding: 240px 0 0 0;
+    padding: 10px 0 0 0;
+    margin-bottom: 70px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -59,20 +63,24 @@
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
-    flex-direction: column;
+    flex-direction: row;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    gap: 30px;
   }
   
   .sidebar__item {
     width: 250px;
     height: 150px;
   }
-  
-  .sidebar__item:not(:last-child) {
-    margin-bottom: 30px;
+
+  .sidebar__quit{
+    width: 50px;
+    height: 50px;
   }
+  
+
   
   .sidebar__link {
     width: 100%;
