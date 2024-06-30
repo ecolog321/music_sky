@@ -10,11 +10,17 @@ import { getTracks } from "@api/trackApi";
 import { TrackType } from "../../../types/types";
 import { Filter } from "@components/Filter/Filter";
 import { filterData } from "@components/Filter/Filter.data";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
-export const CenterBlock = () => {
+type Props ={
+  tracks:TrackType[],
+  setTracks:any,
+  getTrackData:any
+}
+
+export const CenterBlock:FC<Props> = ({tracks,setTracks, getTrackData}) => {
   const [filterValue, setFilterValue] = useState<string | null>(null);
-  const [tracks, setTracks] = useState<TrackType[]>([]);
+
   const [authors, setAuthors] = useState<string[]>([]);
   const [release, setRelease] = useState<string[]>([]);
   const [genre, setGenre] = useState<string[]>([]);
@@ -117,7 +123,7 @@ export const CenterBlock = () => {
             ></Image>
           </div>
         </div>
-        <TrackList tracks={tracks}></TrackList>
+        <TrackList getTrackData={getTrackData} tracks={tracks}></TrackList>
       </div>
     </div>
   );

@@ -1,8 +1,16 @@
+"use client";
+
+import { FC } from "react";
 import { TrackType } from "../../../types/types";
 import styles from "./TrackList.module.css";
 import Image from "next/image";
 
-export const TrackList = ({ tracks }: { tracks: TrackType[] }) => {
+type Props = {
+ getTrackData: any;
+  tracks: TrackType[];
+};
+
+export const TrackList: FC<Props> = ({ tracks, getTrackData }) => {
   function secondsToMs(d: number) {
     const m: number = Math.floor((d % 3600) / 60);
     const s: number = Math.floor((d % 3600) % 60);
@@ -16,8 +24,8 @@ export const TrackList = ({ tracks }: { tracks: TrackType[] }) => {
     <div className={styles.content__playlist}>
       {tracks.map((value: TrackType) => {
         return (
-          <div className={styles.playlist__item} key={value.id}>
-            <div className={styles.playlist__track}>
+          <div className={styles.playlist__item}  key={value.id}>
+            <div className={styles.playlist__track}  onClick={()=>getTrackData(value)}>
               <div className={styles.track__title}>
                 <div className={styles.track__title_image}>
                   <Image
@@ -26,11 +34,12 @@ export const TrackList = ({ tracks }: { tracks: TrackType[] }) => {
                     width={24}
                     height={24}
                     alt="note"
+                   
                   ></Image>
                 </div>
                 <div className={styles.track__title_text}>
                   <div className={styles.track__title_link}>
-                    <a href="#">{value.name}</a>
+                    <a href={value.track_file}>{value.name}</a>
                     <span className={styles.track__title_span}></span>
                   </div>
                 </div>
@@ -50,7 +59,6 @@ export const TrackList = ({ tracks }: { tracks: TrackType[] }) => {
                   <use xlinkHref="/img/icons/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.track__time_text}>
-                  {" "}
                   {secondsToMs(value.duration_in_seconds)}
                 </span>
               </div>

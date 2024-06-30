@@ -1,12 +1,21 @@
+'use client'
 
+import { useState } from "react";
 import { Nav } from "../Nav/Nav";
 import { Player } from "../Player/Player";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { CenterBlock } from "./CenterBlock/CenterBlock";
 import styles from "./main.module.css";
+import { TrackType } from "../../types/types";
 
-export const Main = async () => {
+export const Main =() => {
 
+  const [tracks, setTracks] = useState<TrackType[]>([]);
+  const [currentTrack, setCurrentTrack]=useState<any>()
+
+  const getTrackData =(value:TrackType)=>{
+    setCurrentTrack(value)
+  }
  
 
   return (
@@ -14,9 +23,9 @@ export const Main = async () => {
       <div className={styles.container}>
         <main className={styles.main}>
           <Nav/>
-          <CenterBlock/>
+          <CenterBlock tracks={tracks} setTracks={setTracks} getTrackData={getTrackData}></CenterBlock>
           <Sidebar/>
-          <Player/>
+          <Player currentTrack={currentTrack}></Player>
         </main>
       </div>
     </div>

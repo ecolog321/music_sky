@@ -7,7 +7,7 @@ export const Sidebar = () => {
       <div className={styles.sidebar__personal}>
         <p className={styles.sidebar__parsonal_name}></p>
         <div className={styles.sidebar__icon}>
-          <svg>
+          <svg className={styles.sidebar__quit} >
             <use xlinkHref="/img/icons/sprite.svg#logout"></use>
           </svg>
         </div>
