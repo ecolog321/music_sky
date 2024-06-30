@@ -50,8 +50,8 @@ export const CenterBlock = () => {
     setRelease(toogleRelease());
   }, [tracks]);
 
+
   const changeFilterValue = (value: string) => {
-    console.log(value);
     setFilterValue((prev) => (prev === value ? null : value));
 
     switch (value) {
@@ -61,7 +61,7 @@ export const CenterBlock = () => {
       case "genre":
         setCurrentFilter(genre);
         break;
-      case "release_date":
+      case "release":
         setCurrentFilter(release);
         break;
 
