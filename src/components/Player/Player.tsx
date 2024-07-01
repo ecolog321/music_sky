@@ -1,8 +1,7 @@
 "use client";
 
-import { FC, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import styles from "./player.module.css";
-import Image from "next/image";
 import { TrackType } from "../../types/types";
 import { ProgressBar } from "./ProgressBar/ProgressBar";
 import clsx from "clsx";
@@ -12,7 +11,7 @@ type Props = {
 };
 
 export const Player: FC<Props> = ({ currentTrack }) => {
-  const audioRef = useRef<any>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isLoop, setIsLoop] = useState<boolean>(false);
 
@@ -21,9 +20,9 @@ export const Player: FC<Props> = ({ currentTrack }) => {
 
   const duration = audioRef.current?.duration || 0;
 
-  const alertButton = ()=>{
-    alert('Еще не реализованно')
-  }
+  const alertButton = () => {
+    alert("Еще не реализованно");
+  };
 
   const tooglePlay = () => {
     const audio = audioRef.current;
@@ -56,7 +55,7 @@ export const Player: FC<Props> = ({ currentTrack }) => {
           max={duration}
           value={currentTime}
           step={0.01}
-          onChange={(e: any) => (audioRef.current.currentTime = e.target.value)}
+          onChange={(e:ChangeEvent):void => (audioRef.current.currentTime = e.target.value)}
         ></ProgressBar>
         <div className={styles.bar__player_block}>
           <audio
@@ -67,27 +66,51 @@ export const Player: FC<Props> = ({ currentTrack }) => {
           <div className={styles.bar__player}>
             <div className={styles.player__controls}>
               <div className={styles.player__btn_prev}>
-                <svg onClick={alertButton} className={styles.player__btn_prev_svg}>
+                <svg
+                  onClick={alertButton}
+                  className={styles.player__btn_prev_svg}
+                >
                   <use xlinkHref="/img/icons/sprite.svg#icon-prev"></use>
                 </svg>
               </div>
               <div className={styles.player__btn_play}>
-              <svg onClick={tooglePlay} className={styles.player__btn_play_svg}>
-                  <use xlinkHref={isPlaying ? "/img/icons/sprite.svg#icon-pause" : "/img/icons/sprite.svg#icon-play"}></use>
+                <svg
+                  onClick={tooglePlay}
+                  className={styles.player__btn_play_svg}
+                >
+                  <use
+                    xlinkHref={
+                      isPlaying
+                        ? "/img/icons/sprite.svg#icon-pause"
+                        : "/img/icons/sprite.svg#icon-play"
+                    }
+                  ></use>
                 </svg>
               </div>
               <div className={styles.player__btn_next}>
-                <svg onClick={alertButton} className={styles.player__btn_next_svg}>
+                <svg
+                  onClick={alertButton}
+                  className={styles.player__btn_next_svg}
+                >
                   <use xlinkHref="/img/icons/sprite.svg#icon-next"></use>
                 </svg>
               </div>
               <div className={styles.player__btn_repeat}>
-                <svg onClick={toogleLoop} className={clsx(styles.player__btn_repeat_svg, !isLoop && styles.clicked)}>
+                <svg
+                  onClick={toogleLoop}
+                  className={clsx(
+                    styles.player__btn_repeat_svg,
+                    !isLoop && styles.clicked
+                  )}
+                >
                   <use xlinkHref="/img/icons/sprite.svg#icon-repeat"></use>
                 </svg>
               </div>
               <div className={styles.player__btn_shuffle}>
-                <svg onClick={alertButton} className={styles.player__btn_shuffle_svg}>
+                <svg
+                  onClick={alertButton}
+                  className={styles.player__btn_shuffle_svg}
+                >
                   <use xlinkHref="/img/icons/sprite.svg#icon-shuffle"></use>
                 </svg>
               </div>
@@ -139,7 +162,7 @@ export const Player: FC<Props> = ({ currentTrack }) => {
                   max="1"
                   step="0.01"
                   value={volume}
-                  onChange={(e: any) => setVolume(e.target.value)}
+                  onChange={(e: ChangeEvent):void => setVolume(e.target.value)}
                 />
               </div>
             </div>

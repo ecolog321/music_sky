@@ -14,8 +14,8 @@ import { FC, useEffect, useState } from "react";
 
 type Props ={
   tracks:TrackType[],
-  setTracks:any,
-  getTrackData:any
+  setTracks: (value:TrackType[])=>TrackType[],
+  getTrackData:(value:TrackType)=>TrackType
 }
 
 export const CenterBlock:FC<Props> = ({tracks,setTracks, getTrackData}) => {

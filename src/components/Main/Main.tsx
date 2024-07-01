@@ -11,7 +11,7 @@ import { TrackType } from "../../types/types";
 export const Main =() => {
 
   const [tracks, setTracks] = useState<TrackType[]>([]);
-  const [currentTrack, setCurrentTrack]=useState<any>()
+  const [currentTrack, setCurrentTrack]=useState<TrackType>()
 
   const getTrackData =(value:TrackType)=>{
     setCurrentTrack(value)
