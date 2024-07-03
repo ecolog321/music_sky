@@ -6,21 +6,18 @@ import styles from "./centerblock.module.css";
 import sharedStyles from "../../shared.module.css";
 import { TrackList } from "../TrackList/TrackList";
 import clsx from "clsx";
-import { getTracks } from "@api/trackApi";
 import { TrackType } from "../../../types/types";
 import { Filter } from "@components/Filter/Filter";
 import { filterData } from "@components/Filter/Filter.data";
 import { FC, useEffect, useState } from "react";
 
 type Props ={
-  tracks:TrackType[],
-  setTracks: (value:TrackType[])=>void,
-  getTrackData:(value:TrackType)=>void
+  tracks:TrackType[];
 }
 
-export const CenterBlock:FC<Props> = ({tracks,setTracks, getTrackData}) => {
-  const [filterValue, setFilterValue] = useState<string | null>(null);
+export const CenterBlock:FC<Props> = ({tracks}) => {
 
+  const [filterValue, setFilterValue] = useState<string | null>(null);
   const [authors, setAuthors] = useState<string[]>([]);
   const [release, setRelease] = useState<string[]>([]);
   const [genre, setGenre] = useState<string[]>([]);
@@ -29,25 +26,19 @@ export const CenterBlock:FC<Props> = ({tracks,setTracks, getTrackData}) => {
   const toogleAuthors = () =>
     Array.from(new Set(tracks.map((track) => track.author)));
   useEffect(() => {
-    getTracks()
-      .then((data) => setTracks(data))
-      .catch((err) => alert(err.message));
+    
   }, [filterValue]);
 
   const toogleGenre = () =>
     Array.from(new Set(tracks.map((track) => track.genre)));
   useEffect(() => {
-    getTracks()
-      .then((data) => setTracks(data))
-      .catch((err) => alert(err.message));
+  
   }, [filterValue]);
 
   const toogleRelease = () =>
     Array.from(new Set(tracks.map((track) => track.release_date)));
   useEffect(() => {
-    getTracks()
-      .then((data) => setTracks(data))
-      .catch((err) => alert(err.message));
+
   }, [filterValue]);
 
   useEffect(() => {
@@ -123,7 +114,7 @@ export const CenterBlock:FC<Props> = ({tracks,setTracks, getTrackData}) => {
             ></Image>
           </div>
         </div>
-        <TrackList getTrackData={getTrackData} tracks={tracks}/>
+        <TrackList tracks={tracks}/>
       </div>
     </div>
   );

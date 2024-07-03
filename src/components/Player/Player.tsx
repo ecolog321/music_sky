@@ -1,20 +1,18 @@
 "use client";
 
-import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import styles from "./player.module.css";
-import { TrackType } from "../../types/types";
 import { ProgressBar } from "./ProgressBar/ProgressBar";
 import clsx from "clsx";
+import { useAppDispatch, useAppSelector } from "../../hooks/store";
+import { nextTrack } from "../../store/features/playlistSlise";
 
-type Props = {
-  currentTrack: TrackType;
-};
+export const Player = () => {
+  const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
 
-export const Player: FC<Props> = ({ currentTrack }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [isLoop, setIsLoop] = useState<boolean>(false);
-
+  const [isLoop, setIsLoop] = useState<boolean>(true);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [volume, setVolume] = useState<number>(0.5);
 
@@ -23,6 +21,8 @@ export const Player: FC<Props> = ({ currentTrack }) => {
   const alertButton = () => {
     alert("Еще не реализованно");
   };
+
+  const dispatch = useAppDispatch();
 
   const tooglePlay = () => {
     const audio = audioRef.current;
@@ -42,6 +42,11 @@ export const Player: FC<Props> = ({ currentTrack }) => {
     setIsLoop((prev) => !prev);
   };
 
+  const handleNextSong = () => {
+    dispatch(nextTrack());
+    tooglePlay();
+  };
+
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = volume;
@@ -49,8 +54,19 @@ export const Player: FC<Props> = ({ currentTrack }) => {
   }, [volume]);
 
   useEffect(() => {
-    setIsPlaying(false)
+    setIsPlaying(false);
   }, [currentTrack]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.addEventListener("ended", handleNextSong);
+    }
+    return () => audioRef.current?.removeEventListener("ended", handleNextSong);
+  });
+
+  if (!currentTrack) {
+    return null;
+  }
 
   return (
     <div className={styles.bar}>
@@ -95,7 +111,7 @@ export const Player: FC<Props> = ({ currentTrack }) => {
               </div>
               <div className={styles.player__btn_next}>
                 <svg
-                  onClick={alertButton}
+                  onClick={handleNextSong}
                   className={styles.player__btn_next_svg}
                 >
                   <use xlinkHref="/img/icons/sprite.svg#icon-next"></use>
