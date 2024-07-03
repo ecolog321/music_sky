@@ -28,8 +28,8 @@ export const Player: FC<Props> = ({ currentTrack }) => {
     const audio = audioRef.current;
 
     if (isPlaying) {
-      audio.pause();
-    } else audio.play();
+      audio?.pause();
+    } else audio?.play();
     setIsPlaying((prev) => !prev);
   };
 
@@ -48,6 +48,10 @@ export const Player: FC<Props> = ({ currentTrack }) => {
     }
   }, [volume]);
 
+  useEffect(() => {
+    setIsPlaying(false)
+  }, [currentTrack]);
+
   return (
     <div className={styles.bar}>
       <div className={styles.bar__content}>
@@ -55,8 +59,10 @@ export const Player: FC<Props> = ({ currentTrack }) => {
           max={duration}
           value={currentTime}
           step={0.01}
-          onChange={(e:ChangeEvent):void => (audioRef.current.currentTime = e.target.value)}
-        ></ProgressBar>
+          onChange={(e: ChangeEvent): void =>
+            (audioRef.current.currentTime = e.target.value)
+          }
+        />
         <div className={styles.bar__player_block}>
           <audio
             ref={audioRef}
@@ -162,7 +168,7 @@ export const Player: FC<Props> = ({ currentTrack }) => {
                   max="1"
                   step="0.01"
                   value={volume}
-                  onChange={(e: ChangeEvent):void => setVolume(e.target.value)}
+                  onChange={(e: ChangeEvent): void => setVolume(e.target.value)}
                 />
               </div>
             </div>

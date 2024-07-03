@@ -18,9 +18,6 @@
     -ms-flex-pack: end;
     justify-content: flex-end;
     padding: 12px 0 15px 0;
-    position: absolute;
-    top: 15px;
-    right: 15px;
   }
   
   .sidebar__personal_name {
@@ -63,7 +60,7 @@
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
-    flex-direction: row;
+    flex-direction: column;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;

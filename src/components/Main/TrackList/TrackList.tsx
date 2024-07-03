@@ -6,7 +6,7 @@ import styles from "./TrackList.module.css";
 import Image from "next/image";
 
 type Props = {
-  getTrackData: (value: TrackType) => TrackType;
+  getTrackData: (value: TrackType) => void;
   tracks: TrackType[];
 };
 
@@ -37,7 +37,7 @@ export const TrackList: FC<Props> = ({ tracks, getTrackData }) => {
                     width={24}
                     height={24}
                     alt="note"
-                  ></Image>
+                  />
                 </div>
                 <div className={styles.track__title_text}>
                   <div className={styles.track__title_link}>

@@ -11,7 +11,7 @@ import { TrackType } from "../../types/types";
 export const Main =() => {
 
   const [tracks, setTracks] = useState<TrackType[]>([]);
-  const [currentTrack, setCurrentTrack]=useState<TrackType>()
+  const [currentTrack, setCurrentTrack]=useState<TrackType>(tracks[1]);
 
   const getTrackData =(value:TrackType)=>{
     setCurrentTrack(value)
@@ -23,9 +23,9 @@ export const Main =() => {
       <div className={styles.container}>
         <main className={styles.main}>
           <Nav/>
-          <CenterBlock tracks={tracks} setTracks={setTracks} getTrackData={getTrackData}></CenterBlock>
+          <CenterBlock tracks={tracks} setTracks={setTracks} getTrackData={getTrackData}/>
           <Sidebar/>
-          <Player currentTrack={currentTrack}></Player>
+          <Player currentTrack={currentTrack}/>
         </main>
       </div>
     </div>

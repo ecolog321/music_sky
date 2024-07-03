@@ -14,8 +14,8 @@ import { FC, useEffect, useState } from "react";
 
 type Props ={
   tracks:TrackType[],
-  setTracks: (value:TrackType[])=>TrackType[],
-  getTrackData:(value:TrackType)=>TrackType
+  setTracks: (value:TrackType[])=>void,
+  getTrackData:(value:TrackType)=>void
 }
 
 export const CenterBlock:FC<Props> = ({tracks,setTracks, getTrackData}) => {
@@ -100,7 +100,7 @@ export const CenterBlock:FC<Props> = ({tracks,setTracks, getTrackData}) => {
             list={currentFilter}
             key={item.value}
             onClick={changeFilterValue}
-          ></Filter>
+          />
         ))}
       </div>
       <div className={styles.centerblock__content}>
@@ -123,7 +123,7 @@ export const CenterBlock:FC<Props> = ({tracks,setTracks, getTrackData}) => {
             ></Image>
           </div>
         </div>
-        <TrackList getTrackData={getTrackData} tracks={tracks}></TrackList>
+        <TrackList getTrackData={getTrackData} tracks={tracks}/>
       </div>
     </div>
   );
