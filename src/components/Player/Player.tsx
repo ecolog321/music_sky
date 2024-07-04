@@ -21,8 +21,10 @@ export const Player = () => {
 
   const duration = audioRef.current?.duration || 0;
   const isPlaying = useAppSelector((state) => state.playlist.isPlaying);
+  const isShuffled = useAppSelector((state) => state.playlist.isShuffled);
 
   const dispatch = useAppDispatch();
+
   const useTooglePlay = () => {
     const audio = audioRef.current;
 
@@ -33,11 +35,11 @@ export const Player = () => {
   };
 
   const toogleLoop = () => {
-    const audio = audioRef.current;
 
+  const audio=audioRef.current;
     if (isLoop) {
-      audio.loop = false;
-    } else audio.loop = true;
+      audio ? audio.loop = false: '';
+    } else audio ? audio.loop = true: '';
     setIsLoop((prev) => !prev);
   };
 
@@ -79,8 +81,8 @@ export const Player = () => {
           max={duration}
           value={currentTime}
           step={0.01}
-          onChange={(e: ChangeEvent): void =>
-            (audioRef.current.currentTime = e.target.value)
+          onChange={(e: ChangeEvent<HTMLInputElement>): void => 
+          {if (audioRef.current) audioRef.current.currentTime= +e.target.value}
           }
         />
         <div className={styles.bar__player_block}>
@@ -185,7 +187,7 @@ export const Player = () => {
                   max="1"
                   step="0.01"
                   value={volume}
-                  onChange={(e: ChangeEvent): void => setVolume(e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>): void => setVolume(+e.target.value)}
                 />
               </div>
             </div>

@@ -6,7 +6,7 @@ type Props={
     max:number,
     value:number,
     step:number,
-    onChange:(value: ChangeEvent) => void;
+    onChange:(value: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const ProgressBar: FC<Props>=({ max, value, step, onChange }) =>{
