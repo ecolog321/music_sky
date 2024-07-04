@@ -5,46 +5,50 @@ import styles from "./player.module.css";
 import { ProgressBar } from "./ProgressBar/ProgressBar";
 import clsx from "clsx";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
-import { nextTrack } from "../../store/features/playlistSlise";
+import {
+  nextTrack,
+  prevTrack,
+  setIsPlaying,
+} from "../../store/features/playlistSlise";
 
 export const Player = () => {
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [isLoop, setIsLoop] = useState<boolean>(true);
+  const [isLoop, setIsLoop] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [volume, setVolume] = useState<number>(0.5);
 
   const duration = audioRef.current?.duration || 0;
-
-  const alertButton = () => {
-    alert("Еще не реализованно");
-  };
+  const isPlaying = useAppSelector((state) => state.playlist.isPlaying);
 
   const dispatch = useAppDispatch();
-
-  const tooglePlay = () => {
+  const useTooglePlay = () => {
     const audio = audioRef.current;
 
     if (isPlaying) {
       audio?.pause();
     } else audio?.play();
-    setIsPlaying((prev) => !prev);
+    dispatch(setIsPlaying(!isPlaying));
   };
 
   const toogleLoop = () => {
     const audio = audioRef.current;
 
     if (isLoop) {
-      audio.loop = true;
-    } else audio.loop = false;
+      audio.loop = false;
+    } else audio.loop = true;
     setIsLoop((prev) => !prev);
   };
 
   const handleNextSong = () => {
     dispatch(nextTrack());
-    tooglePlay();
+    dispatch(setIsPlaying(true));
+  };
+
+  const handlePrevSong = () => {
+    dispatch(prevTrack());
+    dispatch(setIsPlaying(true));
   };
 
   useEffect(() => {
@@ -89,7 +93,7 @@ export const Player = () => {
             <div className={styles.player__controls}>
               <div className={styles.player__btn_prev}>
                 <svg
-                  onClick={alertButton}
+                  onClick={handlePrevSong}
                   className={styles.player__btn_prev_svg}
                 >
                   <use xlinkHref="/img/icons/sprite.svg#icon-prev"></use>
@@ -97,7 +101,7 @@ export const Player = () => {
               </div>
               <div className={styles.player__btn_play}>
                 <svg
-                  onClick={tooglePlay}
+                  onClick={useTooglePlay}
                   className={styles.player__btn_play_svg}
                 >
                   <use
@@ -129,10 +133,7 @@ export const Player = () => {
                 </svg>
               </div>
               <div className={styles.player__btn_shuffle}>
-                <svg
-                  onClick={alertButton}
-                  className={styles.player__btn_shuffle_svg}
-                >
+                <svg className={styles.player__btn_shuffle_svg}>
                   <use xlinkHref="/img/icons/sprite.svg#icon-shuffle"></use>
                 </svg>
               </div>
