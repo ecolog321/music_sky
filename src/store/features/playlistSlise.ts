@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TrackType } from "../../types/types";
-import { stat } from "fs";
 
 type PlaylistStateType = {
   isPlaying: boolean;
@@ -66,5 +65,5 @@ const playlistSlice = createSlice({
   },
 });
 
-export const { setCurrentTrack, nextTrack, prevTrack, setIsPlaying } = playlistSlice.actions;
+export const { setCurrentTrack, nextTrack, prevTrack, setIsPlaying,setIsShuffled } = playlistSlice.actions;
 export const playlistReducer = playlistSlice.reducer;

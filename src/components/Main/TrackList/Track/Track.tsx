@@ -5,6 +5,7 @@ import { TrackType } from "../../../../types/types";
 import { secondsToMs } from "../../../../utils/secondsToMs";
 import { setCurrentTrack } from "../../../../store/features/playlistSlise";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/store";
+import clsx from "clsx";
 
 type Props = {
   tracks: TrackType[];
@@ -15,6 +16,7 @@ export const Track: FC<Props> = ({ track, tracks }) => {
   const { name, author, album, duration_in_seconds } = track;
   const dispatch = useAppDispatch();
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
+  const isPlaying=useAppSelector((state)=>state.playlist.isPlaying);
   const isCurrentTrack = currentTrack?.id === track.id;
 
   return (
@@ -27,7 +29,7 @@ export const Track: FC<Props> = ({ track, tracks }) => {
           )
         }
       >
-         {isCurrentTrack && <div className={styles.dote}/>} 
+         {isCurrentTrack && <div className={clsx(styles.dote, isPlaying && styles.dote_playing)}/>} 
         <div className={styles.track__title}>
           <div className={styles.track__title_image}>
             <Image

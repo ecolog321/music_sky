@@ -9,13 +9,14 @@ import {
   nextTrack,
   prevTrack,
   setIsPlaying,
+  setIsShuffled,
 } from "../../store/features/playlistSlise";
 
 export const Player = () => {
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [isLoop, setIsLoop] = useState<boolean>(false);
+  const [isLoop, setIsLoop] = useState<boolean>(true);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [volume, setVolume] = useState<number>(0.5);
 
@@ -25,9 +26,8 @@ export const Player = () => {
 
   const dispatch = useAppDispatch();
 
-  const useTooglePlay = () => {
+  const tooglePlay = () => {
     const audio = audioRef.current;
-
     if (isPlaying) {
       audio?.pause();
     } else audio?.play();
@@ -35,12 +35,17 @@ export const Player = () => {
   };
 
   const toogleLoop = () => {
-
-  const audio=audioRef.current;
+    const audio = audioRef.current;
     if (isLoop) {
-      audio ? audio.loop = false: '';
-    } else audio ? audio.loop = true: '';
+      audio ? (audio.loop = true) : "";
+    } else audio ? (audio.loop = false) : "";
     setIsLoop((prev) => !prev);
+  };
+
+  const toogleShuffle = () => {
+
+   dispatch(setIsShuffled(!isShuffled))
+    console.log(isShuffled)
   };
 
   const handleNextSong = () => {
@@ -60,7 +65,10 @@ export const Player = () => {
   }, [volume]);
 
   useEffect(() => {
-    setIsPlaying(false);
+    if (isPlaying) {
+      const audio = audioRef.current;
+      audio?.play();
+    }
   }, [currentTrack]);
 
   useEffect(() => {
@@ -81,9 +89,10 @@ export const Player = () => {
           max={duration}
           value={currentTime}
           step={0.01}
-          onChange={(e: ChangeEvent<HTMLInputElement>): void => 
-          {if (audioRef.current) audioRef.current.currentTime= +e.target.value}
-          }
+          onChange={(e: ChangeEvent<HTMLInputElement>): void => {
+            if (audioRef.current)
+              audioRef.current.currentTime = +e.target.value;
+          }}
         />
         <div className={styles.bar__player_block}>
           <audio
@@ -103,7 +112,7 @@ export const Player = () => {
               </div>
               <div className={styles.player__btn_play}>
                 <svg
-                  onClick={useTooglePlay}
+                  onClick={tooglePlay}
                   className={styles.player__btn_play_svg}
                 >
                   <use
@@ -135,7 +144,13 @@ export const Player = () => {
                 </svg>
               </div>
               <div className={styles.player__btn_shuffle}>
-                <svg className={styles.player__btn_shuffle_svg}>
+                <svg
+                  onClick={toogleShuffle}
+                  className={clsx(
+                    styles.player__btn_shuffle_svg,
+                    isShuffled && styles.clicked
+                  )}
+                >
                   <use xlinkHref="/img/icons/sprite.svg#icon-shuffle"></use>
                 </svg>
               </div>
@@ -187,7 +202,9 @@ export const Player = () => {
                   max="1"
                   step="0.01"
                   value={volume}
-                  onChange={(e: ChangeEvent<HTMLInputElement>): void => setVolume(+e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>): void =>
+                    setVolume(+e.target.value)
+                  }
                 />
               </div>
             </div>
