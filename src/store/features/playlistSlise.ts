@@ -43,7 +43,7 @@ const playlistSlice = createSlice({
       );
       const nextIndex = currentIndex + 1;
       nextIndex >= playlist.length
-        ? (state.currentTrack = playlist[0])
+        ? (state.currentTrack = playlist[playlist.length-1])
         : (state.currentTrack = playlist[nextIndex]);
     },
     prevTrack: (state) => {
@@ -53,7 +53,7 @@ const playlistSlice = createSlice({
       );
       const prevIndex = currentIndex - 1;
       prevIndex < 0
-        ? (state.currentTrack = playlist[playlist.length-1])
+        ? (state.currentTrack = playlist[0])
         : (state.currentTrack = playlist[prevIndex]);
     },
     setIsPlaying: (state, action:PayloadAction<boolean>)=>{

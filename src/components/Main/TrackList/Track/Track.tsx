@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from "./track.module.css";
 import { TrackType } from "../../../../types/types";
 import { secondsToMs } from "../../../../utils/secondsToMs";
-import { setCurrentTrack } from "../../../../store/features/playlistSlise";
+import { setCurrentTrack, setIsPlaying } from "../../../../store/features/playlistSlise";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/store";
 import clsx from "clsx";
 
@@ -19,15 +19,16 @@ export const Track: FC<Props> = ({ track, tracks }) => {
   const isPlaying=useAppSelector((state)=>state.playlist.isPlaying);
   const isCurrentTrack = currentTrack?.id === track.id;
 
+  const toogleTrack =()=>{
+    dispatch(setCurrentTrack({currentTrack:track,currentPlaylist:tracks}));
+    dispatch(setIsPlaying(true));
+  }
+
   return (
     <div className={styles.playlist__item}>
       <div
         className={styles.playlist__track}
-        onClick={() =>
-          dispatch(
-            setCurrentTrack({currentTrack:track,currentPlaylist:tracks})
-          )
-        }
+        onClick={toogleTrack}
       >
          {isCurrentTrack && <div className={clsx(styles.dote, isPlaying && styles.dote_playing)}/>} 
         <div className={styles.track__title}>
