@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import ReduxProvider from "../store/ReduxProvider";
 
-const inter = Montserrat({ subsets: ["latin"] });
+const montserat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Музыкальный плеер",
@@ -16,7 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={inter.className}>{children}</body>
+      <ReduxProvider>
+      <body className={montserat.className}>{children}</body>
+      </ReduxProvider>
+     
     </html>
   );
 }

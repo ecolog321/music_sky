@@ -6,12 +6,15 @@
 }
 
 .container {
+  min-width: 600px;
   max-width: 1920px;
-  height: 100vh;
+  height: auto;
   margin: 0 auto;
   position: relative;
   background-color: #181818;
   overflow: auto;
+  display: flex;
+  align-items: center;
 }
 
 .main {
@@ -25,6 +28,8 @@
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
 }
 
 

@@ -1,5 +1,5 @@
 .bar {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -16,11 +16,6 @@
     flex-direction: column;
   }
   
-  .bar__player_progress {
-    width: 100%;
-    height: 5px;
-    background: #2e2e2e;
-  }
   
   .bar__player_block {
     height: 73px;
@@ -34,6 +29,8 @@
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 100%;
   }
   
   .bar__player {
@@ -99,12 +96,13 @@
   
   .player__btn_play {
     margin-right: 23px;
+    background-color: transparent;
+    align-items: center;
   }
   
   .player__btn_play_svg {
     width: 22px;
     height: 20px;
-    fill: #d9d9d9;
   }
   
   .player__btn_next {
@@ -124,10 +122,8 @@
   }
   
   .player__btn_repeat_svg {
-    width: 18px;
-    height: 12px;
-    fill: transparent;
-    stroke: #696969;
+    width: 20px;
+    height: 20px;
   }
   
   .player__btn_shuffle {
@@ -154,6 +150,7 @@
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
     flex-direction: row;
+    align-items: center;
   }
   
   .track_play__contain {
@@ -256,7 +253,7 @@
     margin-left: 28.5px;
   }
   
-  .track_play__dislike-svg {
+  .track_play__dislike_svg {
     width: 14.34px;
     height: 13px;
     fill: transparent;
@@ -297,4 +294,11 @@
   
   .volume__progress_line {
     width: 109px;
+  }
+
+  .clicked {
+    fill: rgb(255, 255, 255);
+    width: 25px;
+    height: 25px;
+    stroke: #ffffff;
   }

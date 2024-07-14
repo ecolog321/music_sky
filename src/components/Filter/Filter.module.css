@@ -1,0 +1,32 @@
+.filter__block {
+    background-color:#181818;
+    gap: 20px;
+}
+
+.filter__items {
+    color:#ffffff;
+    
+}
+
+.filter__items {
+    color:#B672FF;
+    text-decoration: underline;
+    
+}
+
+.filter__list {
+    background:#313131;
+    border-radius: 12px;
+    padding: 15px;
+    gap:10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    position: absolute;
+    z-index: 15;
+    width: 250px;
+    height: 150px;
+    overflow: auto;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}

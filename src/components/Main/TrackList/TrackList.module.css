@@ -1,0 +1,29 @@
+
+  
+  .content__playlist {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .playlist_title__col {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 2px;
+    color: #696969;
+    text-transform: uppercase;
+  }
+  
+  .playlist_title__svg {
+    width: 12px;
+    height: 12px;
+    fill: transparent;
+    stroke: #696969;
+  }
