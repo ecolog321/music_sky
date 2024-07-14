@@ -8,8 +8,10 @@ import { TrackList } from "../TrackList/TrackList";
 import clsx from "clsx";
 import { TrackType } from "../../../types/types";
 import { Filter } from "@components/Filter/Filter";
-import { filterData } from "@components/Filter/Filter.data";
+import { filterFresh } from "@components/Filter/Filter.data";
 import { FC, useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../hooks/store";
+import { setPlaylist } from "../../../store/features/playlistSlise";
 
 type Props ={
   tracks:TrackType[];
@@ -22,6 +24,30 @@ export const CenterBlock:FC<Props> = ({tracks}) => {
   const [release, setRelease] = useState<string[]>([]);
   const [genre, setGenre] = useState<string[]>([]);
   const [currentFilter, setCurrentFilter] = useState<string[]>([]);
+
+
+  const filteredTracks=useAppSelector((store)=>store.playlist.filteredPlaylist)
+
+  const filterData = [
+    {
+      title: "исполнителю",
+      list: ["Первый", "Второй", "Третий"],
+      value: "author",
+      selected: useAppSelector((store)=>store.playlist.filterOptions.author)
+    },
+    {
+      title: "году выпуска",
+      list: ["По умолчанию", "Сначала новые", "Сначала старые"],
+      value: "release",
+      selected: useAppSelector((store)=>store.playlist.filterOptions.order)
+    },
+    {
+      title: "жанру",
+      list: ["рок", "классика", "поп"],
+      value: "genre",
+      selected: useAppSelector((store)=>store.playlist.filterOptions.genre)
+    },
+  ];
 
   const toogleAuthors = () =>
     Array.from(new Set(tracks.map((track) => track.author)));
@@ -36,7 +62,7 @@ export const CenterBlock:FC<Props> = ({tracks}) => {
   }, [filterValue]);
 
   const toogleRelease = () =>
-    Array.from(new Set(tracks.map((track) => track.release_date)));
+    Array.from(new Set(filterFresh.map((track) => track)));
   useEffect(() => {
 
   }, [filterValue]);
@@ -91,6 +117,7 @@ export const CenterBlock:FC<Props> = ({tracks}) => {
             list={currentFilter}
             key={item.value}
             onClick={changeFilterValue}
+            selected={item.selected}
           />
         ))}
       </div>

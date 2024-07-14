@@ -11,13 +11,15 @@ export const Main = async () => {
   let error: string | null = null;
 
   try {
-    tracks = await getTracks();
+    tracks = await getTracks() ;
   } catch (err) {
     error =
       err instanceof Error
         ? "Ошибка загрузки треков. " + err.message
         : "Неизвестная ошибка";
   }
+
+
 
   return (
     <div className={styles.wrapper}>

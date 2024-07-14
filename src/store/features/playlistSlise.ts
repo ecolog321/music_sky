@@ -8,6 +8,13 @@ type PlaylistStateType = {
   tracks: TrackType[];
   isShuffled: boolean;
   shuffledPlaylist: TrackType[];
+  filterOptions: {
+    author: string[];
+    genre: string[];
+    order: string;
+    searchField: string;
+  };
+  filteredPlaylist: TrackType[];
 };
 
 const initialState: PlaylistStateType = {
@@ -17,6 +24,13 @@ const initialState: PlaylistStateType = {
   tracks: [],
   isShuffled: false,
   shuffledPlaylist: [],
+  filterOptions: {
+    author: [],
+    genre: [],
+    order: "По умолчанию",
+    searchField: "",
+  },
+  filteredPlaylist: [],
 };
 
 const playlistSlice = createSlice({
@@ -36,18 +50,26 @@ const playlistSlice = createSlice({
         () => 0.5 - Math.random()
       );
     },
+    setPlaylist: ((state, action:PayloadAction<{tracks:TrackType[]}>)=>{
+      state.currentPlaylist=action.payload.tracks;
+      state.filteredPlaylist=action.payload.tracks;
+    }),
     nextTrack: (state) => {
-      const playlist = state.isShuffled ? state.shuffledPlaylist : state.currentPlaylist;
+      const playlist = state.isShuffled
+        ? state.shuffledPlaylist
+        : state.currentPlaylist;
       const currentIndex = playlist.findIndex(
         (track) => track.id === state.currentTrack?.id
       );
       const nextIndex = currentIndex + 1;
       nextIndex >= playlist.length
-        ? (state.currentTrack = playlist[playlist.length-1])
+        ? (state.currentTrack = playlist[playlist.length - 1])
         : (state.currentTrack = playlist[nextIndex]);
     },
     prevTrack: (state) => {
-      const playlist = state.isShuffled ? state.shuffledPlaylist : state.currentPlaylist;
+      const playlist = state.isShuffled
+        ? state.shuffledPlaylist
+        : state.currentPlaylist;
       const currentIndex = playlist.findIndex(
         (track) => track.id === state.currentTrack?.id
       );
@@ -56,14 +78,73 @@ const playlistSlice = createSlice({
         ? (state.currentTrack = playlist[0])
         : (state.currentTrack = playlist[prevIndex]);
     },
-    setIsPlaying: (state, action:PayloadAction<boolean>)=>{
-        state.isPlaying=action.payload;
+    setIsPlaying: (state, action: PayloadAction<boolean>) => {
+      state.isPlaying = action.payload;
     },
-    setIsShuffled: (state, action:PayloadAction<boolean>)=>{
-      state.isShuffled=action.payload;
-  }
+    setIsShuffled: (state, action: PayloadAction<boolean>) => {
+      state.isShuffled = action.payload;
+    },
+    setFilters: (
+      state,
+      action: PayloadAction<{
+        author?: string[];
+        genre?: string[];
+        order?: string;
+        searchField?: string;
+      }>
+    ) => {
+      state.filterOptions = {
+        author: action.payload.author || state.filterOptions.author,
+        genre: action.payload.genre || state.filterOptions.genre,
+        order: action.payload.order || state.filterOptions.order,
+        searchField: action.payload.searchField || state.filterOptions.searchField,
+      };
+      const filteredTracks = [...state.currentPlaylist].filter((track) => {
+        const valueSearchField = track.name
+          .toLowerCase()
+          .includes(state.filterOptions.searchField.toLowerCase());
+        const valueAuthor =
+          state.filterOptions.author.length > 0
+            ? state.filterOptions.author.includes(track.author)
+            : true;
+        const valueGenre =
+          state.filterOptions.author.length > 0
+            ? state.filterOptions.genre.includes(track.genre)
+            : true;
+        return valueSearchField && valueAuthor && valueGenre;
+      });
+      switch (state.filterOptions.order) {
+        case "Сначала новые":
+          filteredTracks.sort(
+            (a, b) =>
+              new Date(b.release_date).getTime() -
+              new Date(a.release_date).getTime()
+          );
+          break;
+        case "Сначала старые":
+          filteredTracks.sort(
+            (a, b) =>
+              new Date(a.release_date).getTime() -
+              new Date(b.release_date).getTime()
+          );
+
+          break;
+
+        default:
+          break;
+      }
+      state.filteredPlaylist = filteredTracks;
+    },
   },
 });
 
-export const { setCurrentTrack, nextTrack, prevTrack, setIsPlaying,setIsShuffled } = playlistSlice.actions;
+export const {
+  setCurrentTrack,
+  nextTrack,
+  prevTrack,
+  setIsPlaying,
+  setIsShuffled,
+  setFilters,
+  setPlaylist
+} = playlistSlice.actions;
 export const playlistReducer = playlistSlice.reducer;
