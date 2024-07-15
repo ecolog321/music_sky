@@ -1,4 +1,4 @@
-export type StaredUserType = {
+export type UserType = {
     id:number,
     username:string,
     first_name:string,
@@ -16,6 +16,16 @@ export type TrackType = {
     album:string,
     logo:null | string,
     track_file:string,
-    stared_user: StaredUserType[]
+    stared_user: UserType[]
 }
+
+export type SinginFormType = {
+    email: string;
+    password: string;
+  };
+
+  export type Tokens={
+    acsess:string | null,
+    refresh: string | null,
+  }
 
