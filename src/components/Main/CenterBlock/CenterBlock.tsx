@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 "use client";
 
 import Image from "next/image";
@@ -10,8 +10,7 @@ import { TrackType } from "../../../types/types";
 import { Filter } from "@components/Filter/Filter";
 import { filterFresh } from "@components/Filter/Filter.data";
 import { FC, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../hooks/store";
-import { setPlaylist } from "../../../store/features/playlistSlise";
+import { useAppSelector } from "../../../hooks/store";
 
 type Props ={
   tracks:TrackType[];
@@ -141,7 +140,7 @@ export const CenterBlock:FC<Props> = ({tracks}) => {
             ></Image>
           </div>
         </div>
-        <TrackList tracks={tracks}/>
+        <TrackList tracks={filteredTracks}/>
       </div>
     </div>
   );

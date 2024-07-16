@@ -43,9 +43,8 @@ export const Player = () => {
   };
 
   const toogleShuffle = () => {
-
-   dispatch(setIsShuffled(!isShuffled))
-    console.log(isShuffled)
+    dispatch(setIsShuffled(!isShuffled));
+    console.log(isShuffled);
   };
 
   const handleNextSong = () => {
@@ -69,7 +68,7 @@ export const Player = () => {
       const audio = audioRef.current;
       audio?.play();
     }
-  }, [currentTrack]);
+  }, [currentTrack, isPlaying]);
 
   useEffect(() => {
     if (audioRef.current) {

@@ -3,13 +3,19 @@
 import Image from "next/image";
 import styles from "./Nav.module.css";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const Nav = () => {
+  const router=useRouter();
   const [showNav, isShowNav] = useState<boolean>(false);
 
   const toogleNavi = () => {
     isShowNav(!showNav);
   };
+
+  const goToSingin=()=>{
+    router.push('/singin')
+  }
 
   return showNav ? (
     <nav className={styles.main__nav}>
@@ -35,7 +41,7 @@ export const Nav = () => {
           <li className={styles.menu__item}>
             <a className={styles.menu__link}>Мой плейлист</a>
           </li>
-          <li className={styles.menu__item}>
+          <li className={styles.menu__item} onClick={goToSingin}>
             <a className={styles.menu__link}>Войти</a>
           </li>
         </ul>

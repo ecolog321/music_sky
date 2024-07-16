@@ -14,7 +14,7 @@ type Props = {
   value: string;
   isOpen: boolean;
   onClick: (value: string) => void;
-  selected: string[] |string;
+  selected: string[];
 };
 
 export const Filter: FC<Props> = ({
@@ -36,6 +36,13 @@ export const Filter: FC<Props> = ({
       dispatch(setFilters({ order: item }));
       return;
     }
+    dispatch(
+      setFilters({
+        [value]: selected.includes(item)
+          ? selected.filter((el) => el !== item)
+          : [...selected, item],
+      })
+    );
   };
 
   return (
