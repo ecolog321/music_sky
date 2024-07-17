@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -10,61 +9,57 @@ import { TrackType } from "../../../types/types";
 import { Filter } from "@components/Filter/Filter";
 import { filterFresh } from "@components/Filter/Filter.data";
 import { FC, useEffect, useState } from "react";
-import { useAppSelector } from "../../../hooks/store";
+import { useAppDispatch, useAppSelector } from "../../../hooks/store";
+import { setPlaylist } from "../../../store/features/playlistSlise";
 
-type Props ={
-  tracks:TrackType[];
-}
+type Props = {
+  tracks: TrackType[];
+};
 
-export const CenterBlock:FC<Props> = ({tracks}) => {
-
+export const CenterBlock: FC<Props> = ({ tracks }) => {
   const [filterValue, setFilterValue] = useState<string | null>(null);
   const [authors, setAuthors] = useState<string[]>([]);
   const [release, setRelease] = useState<string[]>([]);
   const [genre, setGenre] = useState<string[]>([]);
   const [currentFilter, setCurrentFilter] = useState<string[]>([]);
+  const dispatch = useAppDispatch();
 
-
-  const filteredTracks=useAppSelector((store)=>store.playlist.filteredPlaylist)
+  const filteredTracks = useAppSelector(
+    (store) => store.playlist.filteredPlaylist
+  );
 
   const filterData = [
     {
       title: "исполнителю",
       list: ["Первый", "Второй", "Третий"],
       value: "author",
-      selected: useAppSelector((store)=>store.playlist.filterOptions.author)
+      selected: useAppSelector((store) => store.playlist.filterOptions.author),
     },
     {
       title: "году выпуска",
       list: ["По умолчанию", "Сначала новые", "Сначала старые"],
       value: "release",
-      selected: useAppSelector((store)=>store.playlist.filterOptions.order)
+      selected: useAppSelector((store) => store.playlist.filterOptions.order),
     },
     {
       title: "жанру",
       list: ["рок", "классика", "поп"],
       value: "genre",
-      selected: useAppSelector((store)=>store.playlist.filterOptions.genre)
+      selected: useAppSelector((store) => store.playlist.filterOptions.genre),
     },
   ];
 
   const toogleAuthors = () =>
     Array.from(new Set(tracks.map((track) => track.author)));
-  useEffect(() => {
-    
-  }, [filterValue]);
+  useEffect(() => {}, [filterValue]);
 
   const toogleGenre = () =>
     Array.from(new Set(tracks.map((track) => track.genre)));
-  useEffect(() => {
-  
-  }, [filterValue]);
+  useEffect(() => {}, [filterValue]);
 
   const toogleRelease = () =>
     Array.from(new Set(filterFresh.map((track) => track)));
-  useEffect(() => {
-
-  }, [filterValue]);
+  useEffect(() => {}, [filterValue]);
 
   useEffect(() => {
     setAuthors(toogleAuthors());
@@ -72,6 +67,9 @@ export const CenterBlock:FC<Props> = ({tracks}) => {
     setRelease(toogleRelease());
   }, [tracks]);
 
+  useEffect(() => {
+    dispatch(setPlaylist({ tracks }));
+  }, [dispatch, tracks]);
 
   const changeFilterValue = (value: string) => {
     setFilterValue((prev) => (prev === value ? null : value));
@@ -140,7 +138,7 @@ export const CenterBlock:FC<Props> = ({tracks}) => {
             ></Image>
           </div>
         </div>
-        <TrackList tracks={filteredTracks}/>
+        <TrackList tracks={filteredTracks} />
       </div>
     </div>
   );

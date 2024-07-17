@@ -12,10 +12,6 @@ type Props = {
 
 export const TrackList: FC<Props> = ({ tracks }) => {
 
-  const dispatch=useAppDispatch();
-
-  dispatch(setPlaylist({tracks}))
-
   const filteredTracks=useAppSelector((store)=>store.playlist.filteredPlaylist)
 
   return (
