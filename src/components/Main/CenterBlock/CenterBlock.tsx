@@ -39,7 +39,7 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
       title: "году выпуска",
       list: ["По умолчанию", "Сначала новые", "Сначала старые"],
       value: "release",
-      selected: useAppSelector((store) => store.playlist.filterOptions.order),
+      selected: [useAppSelector((store) => store.playlist.filterOptions.order)],
     },
     {
       title: "жанру",
@@ -65,7 +65,7 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
     setAuthors(toogleAuthors());
     setGenre(toogleGenre());
     setRelease(toogleRelease());
-  }, [tracks]);
+  }, []);
 
   useEffect(() => {
     dispatch(setPlaylist({ tracks }));
