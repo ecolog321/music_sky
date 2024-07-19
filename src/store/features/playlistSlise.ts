@@ -19,7 +19,7 @@ type PlaylistStateType = {
   shuffledPlaylist: TrackType[];
   filterOptions: {
     author: string[];
-    genre: string[];
+    genre:string[];
     order: string;
     searchField: string;
   };
@@ -121,7 +121,7 @@ const playlistSlice = createSlice({
             : true;
         const valueGenre =
           state.filterOptions.genre.length > 0
-            ? state.filterOptions.genre.includes(track.genre)
+            ? state.filterOptions.genre.includes(track.genre[0])
             : true;
         return valueSearchField && valueAuthor && valueGenre;
       });

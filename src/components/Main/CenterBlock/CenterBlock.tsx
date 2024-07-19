@@ -54,7 +54,7 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
   useEffect(() => {}, [filterValue]);
 
   const toogleGenre = () =>
-    Array.from(new Set(tracks.map((track) => track.genre)));
+    Array.from(new Set(tracks.map((track) => track.genre[0])));
   useEffect(() => {}, [filterValue]);
 
   const toogleRelease = () =>

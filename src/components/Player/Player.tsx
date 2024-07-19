@@ -27,7 +27,7 @@ export const Player = () => {
 
   const dispatch = useAppDispatch();
 
-  const {isLiked, handleLike}=useLikeTracks(currentTrack?._id)
+  const { isLiked, handleLike } = useLikeTracks(currentTrack?._id);
 
   const tooglePlay = () => {
     const audio = audioRef.current;
@@ -177,8 +177,14 @@ export const Player = () => {
                 </div>
               </div>
 
-              <div className={styles.track_play__like_dis}>
-                <svg className={clsx(isLiked ? styles.track_play__like_svg : styles.track_play__dislike)}>
+              <div className={styles.track_play__like_dis} onClick={handleLike}>
+                <svg
+                  className={clsx(
+                    isLiked
+                      ? styles.track_play__like_svg
+                      : styles.track_play__dislike
+                  )}
+                >
                   <use
                     className=""
                     xlinkHref="/img/icons/sprite.svg#icon-like"
