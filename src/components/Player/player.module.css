@@ -223,7 +223,7 @@
     color: #ffffff;
   }
   
-  .track_play__like-dis {
+  .track_play__like_dis {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -235,6 +235,8 @@
     -ms-flex-align: center;
     align-items: center;
     margin-left: 26%;
+    width: 60px;
+    height: 50px;
   }
   
   .track_play__like,
@@ -245,8 +247,8 @@
   .track_play__like_svg {
     width: 14px;
     height: 12px;
-    fill: transparent;
-    stroke: #696969;
+    fill: #653596;
+    stroke: #653596;
   }
   
   .track_play__dislike {

@@ -3,7 +3,7 @@ import { SinginFormType, SingupFormType } from "../types/types";
 export const fetchUser = async ({ email, password }: SinginFormType) => {
   try {
     const response = await fetch(
-      "https://skypro-music-api.skyeng.tech/user/login/",
+      "https://webdev-music-003b5b991590.herokuapp.com/user/login/",
       {
         method: "POST",
         body: JSON.stringify({
@@ -25,7 +25,7 @@ export const fetchUser = async ({ email, password }: SinginFormType) => {
 export const fetchRegistration = async ({ email, password, username }: SingupFormType) => {
   try {
     const response = await fetch(
-      "https://skypro-music-api.skyeng.tech/user/signup/",
+      "https://webdev-music-003b5b991590.herokuapp.com/user/signup/",
       {
         method: "POST",
         body: JSON.stringify({
@@ -48,7 +48,7 @@ export const fetchRegistration = async ({ email, password, username }: SingupFor
 export const fetchTokens = async ({ email, password }: SinginFormType) => {
   try {
     const response = await fetch(
-      "https://skypro-music-api.skyeng.tech/user/token/",
+      "https://webdev-music-003b5b991590.herokuapp.com/user/token/",
       {
         method: "POST",
         body: JSON.stringify({
@@ -70,7 +70,7 @@ export const fetchTokens = async ({ email, password }: SinginFormType) => {
 export const fetchFavTracks = async (access: string) => {
   try {
     const response = await fetch(
-      "https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/",
+      "https://webdev-music-003b5b991590.herokuapp.com/catalog/track/favorite/all/",
       {
         headers: {
           Authorization: `Bearer ${access}`,

@@ -7,7 +7,7 @@ export type UserType = {
 }
 
 export type TrackType = {
-    id:number,
+    _id:number,
     name:string,
     author:string,
     release_date:string,
@@ -31,7 +31,7 @@ export type SinginFormType = {
   };
 
   export type Tokens={
-    acsess:string | null,
+    access:string | null,
     refresh: string | null,
   }
 

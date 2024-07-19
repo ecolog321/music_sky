@@ -65,7 +65,7 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
     setAuthors(toogleAuthors());
     setGenre(toogleGenre());
     setRelease(toogleRelease());
-  }, []);
+  }, [tracks]);
 
   useEffect(() => {
     dispatch(setPlaylist({ tracks }));

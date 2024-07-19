@@ -17,7 +17,7 @@ export const TrackList: FC<Props> = ({ tracks }) => {
   return (
     <div className={styles.content__playlist}>
       {filteredTracks.map((value: TrackType) => (
-        <Track key={value.id} track={value} tracks={tracks} />
+        <Track key={value._id} track={value} tracks={tracks} />
       ))}
     </div>
   );

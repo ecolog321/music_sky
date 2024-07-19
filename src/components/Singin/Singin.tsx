@@ -70,8 +70,8 @@ export const Singin = () => {
             <button className={styles.modal__btn_enter} onClick={handleSubmit}>
               Войти
             </button>
-            <button className={styles.modal__btn_signup} onClick={()=> router.push('/')}>
-              Зарегестрироваться 
+            <button className={styles.modal__btn_signup}>
+              <Link href={"/singup"}>Зарегестрироваться </Link>
             </button>
           </form>
         </div>

@@ -29,11 +29,11 @@ export const Singup = () => {
   };
 
   const handleRepeatPassword = (e: ChangeEvent<HTMLInputElement>) => {
-    const {name,value} = e.target;
+    const { name, value } = e.target;
     setRepeatedPassword((prevValue) => {
       return {
         ...prevValue,
-        [name]:value,
+        [name]: value,
       };
     });
   };
@@ -106,7 +106,12 @@ export const Singup = () => {
               >
                 Зарегестрироваться
               </button>
-              <button className={styles.modal__btn_signup_ent}>Войти</button>
+              <h2 className={styles.modal__input}>
+                Уже есть акккаунт?
+              </h2>
+              <button className={styles.modal__btn_signup_ent}>
+                <Link href={"/singin"}> Войти</Link>
+              </button>
             </div>
           </form>
         </div>

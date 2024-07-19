@@ -11,6 +11,7 @@ import {
   setIsPlaying,
   setIsShuffled,
 } from "../../store/features/playlistSlise";
+import { useLikeTracks } from "../../hooks/useLikeTrack";
 
 export const Player = () => {
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
@@ -25,6 +26,8 @@ export const Player = () => {
   const isShuffled = useAppSelector((state) => state.playlist.isShuffled);
 
   const dispatch = useAppDispatch();
+
+  const {isLiked, handleLike}=useLikeTracks(currentTrack?._id)
 
   const tooglePlay = () => {
     const audio = audioRef.current;
@@ -174,11 +177,11 @@ export const Player = () => {
                 </div>
               </div>
 
-              <div className={styles.track_play__dislike}>
-                <svg className={styles.track_play__dislike_svg}>
+              <div className={styles.track_play__like_dis}>
+                <svg className={clsx(isLiked ? styles.track_play__like_svg : styles.track_play__dislike)}>
                   <use
                     className=""
-                    xlinkHref="/img/icons/sprite.svg#icon-dislike"
+                    xlinkHref="/img/icons/sprite.svg#icon-like"
                   ></use>
                 </svg>
               </div>

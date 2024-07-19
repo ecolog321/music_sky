@@ -27,10 +27,8 @@ export const Filter: FC<Props> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  const [isPick, setIsPick] = useState<string | null>(null);
 
   const toogleFilter = (item: string) => {
-    setIsPick((prev) => (prev === item ? null : item));
 
     if (value === "release") {
       dispatch(setFilters({ order: item }));
@@ -62,7 +60,7 @@ export const Filter: FC<Props> = ({
             return (
               <li
                 className={clsx(
-                  isPick === item
+                  selected.includes(item)
                     ? styles.filter__items
                     : styles.filre__items_pick
                 )}

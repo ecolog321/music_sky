@@ -6,6 +6,7 @@ import { secondsToMs } from "../../../../utils/secondsToMs";
 import { setCurrentTrack, setIsPlaying } from "../../../../store/features/playlistSlise";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/store";
 import clsx from "clsx";
+import { useLikeTracks } from "../../../../hooks/useLikeTrack";
 
 type Props = {
   tracks: TrackType[];
@@ -17,7 +18,9 @@ export const Track: FC<Props> = ({ track, tracks }) => {
   const dispatch = useAppDispatch();
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
   const isPlaying=useAppSelector((state)=>state.playlist.isPlaying);
-  const isCurrentTrack = currentTrack?.id === track.id;
+  const isCurrentTrack = currentTrack?._id === track._id;
+
+  const {isLiked, handleLike}=useLikeTracks(track._id)
 
   const toogleTrack =()=>{
     dispatch(setCurrentTrack({currentTrack:track,currentPlaylist:tracks}));
@@ -54,8 +57,8 @@ export const Track: FC<Props> = ({ track, tracks }) => {
         <div className={styles.track__album}>
           <a className={styles.track__album_link}>{album}</a>
         </div>
-        <div className={styles.track__time}>
-          <svg className={styles.track__time_svg}>
+        <div className={styles.track__time} onClick={handleLike}>
+          <svg className={clsx(isLiked ? styles.track__liked_svg  : styles.track__time_svg)}>
             <use xlinkHref="/img/icons/sprite.svg#icon-like"></use>
           </svg>
           <span className={styles.track__time_text}>

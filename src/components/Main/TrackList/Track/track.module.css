@@ -130,6 +130,14 @@
     fill: transparent;
     stroke: #696969;
   }
+
+  .track__liked_svg {
+    width: 14px;
+    height: 12px;
+    margin-right: 17px;
+    fill: #653596;
+    stroke: #653596;
+  }
   
   .track__time_text {
     font-style: normal;

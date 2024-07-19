@@ -34,7 +34,7 @@ type AuthStateType = {
 const initialState: AuthStateType = {
   user: null,
   tokens: {
-    acsess: null,
+    access: null,
     refresh: null,
   },
 };
@@ -45,7 +45,7 @@ const authSlice = createSlice({
   reducers: {
     quitUser: (state) => {
       state.user = null;
-      state.tokens.acsess = null;
+      state.tokens.access = null;
       state.tokens.refresh = null;
     },
   },
@@ -59,7 +59,7 @@ const authSlice = createSlice({
     builder.addCase(
       getTokens.fulfilled,
       (state, action: PayloadAction<Tokens>) => {
-        state.tokens.acsess = action.payload.acsess;
+        state.tokens.access = action.payload.access;
         state.tokens.refresh = action.payload.refresh;
       }
     );
