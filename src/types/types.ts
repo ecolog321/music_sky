@@ -24,6 +24,12 @@ export type SinginFormType = {
     password: string;
   };
 
+  export type SingupFormType = {
+    email: string;
+    password: string;
+    username:string,
+  };
+
   export type Tokens={
     acsess:string | null,
     refresh: string | null,

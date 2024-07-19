@@ -1,4 +1,4 @@
-import { SinginFormType } from "../types/types";
+import { SinginFormType, SingupFormType } from "../types/types";
 
 export const fetchUser = async ({ email, password }: SinginFormType) => {
   try {
@@ -9,6 +9,29 @@ export const fetchUser = async ({ email, password }: SinginFormType) => {
         body: JSON.stringify({
           email,
           password,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    throw new Error("Ошибка" + error);
+  }
+};
+
+export const fetchRegistration = async ({ email, password, username }: SingupFormType) => {
+  try {
+    const response = await fetch(
+      "https://skypro-music-api.skyeng.tech/user/signup/",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          password,
+          username,
         }),
         headers: {
           "Content-Type": "application/json",

@@ -9,7 +9,7 @@ import { useAppDispatch } from "../../hooks/store";
 import { useRouter } from "next/navigation";
 
 export const Singin = () => {
-  const router=useRouter();
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
@@ -30,7 +30,7 @@ export const Singin = () => {
         dispatch(getTokens(formData)).unwrap(),
         dispatch(getUser(formData)).unwrap(),
       ]);
-      router.push('/');
+      router.push("/");
     } catch (error) {
       throw new Error("Ошибка" + error);
     }
@@ -67,12 +67,11 @@ export const Singin = () => {
               value={formData.password}
               onChange={handleChange}
             />
-            <button
-              className={styles.modal__btn_enter}
-              onClick={handleSubmit}
-            >Войти</button>
-            <button className={styles.modal__btn_signup}>
-              <Link href={"/signup"}>Зарегестироваться</Link>
+            <button className={styles.modal__btn_enter} onClick={handleSubmit}>
+              Войти
+            </button>
+            <button className={styles.modal__btn_signup} onClick={()=> router.push('/')}>
+              Зарегестрироваться 
             </button>
           </form>
         </div>
