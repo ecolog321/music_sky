@@ -155,14 +155,14 @@ const playlistSlice = createSlice({
       );
     },
   },
-  extraReducers(builder) {
+ /*  extraReducers(builder) {
     builder.addCase(
       getFavoiteTracks.fulfilled,
       (state, action: PayloadAction<number[]>) => {
         state.likedTracks = action.payload;
       }
     );
-  },
+  }, */
 });
 
 export const {

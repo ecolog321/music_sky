@@ -1,21 +1,32 @@
-'use client'
+
 import styles from './favorite.module.css'
 import { Nav } from "@components/Nav/Nav";
 import { CenterBlock } from "@components/Main/CenterBlock/CenterBlock";
 import { Sidebar } from "@components/Sidebar/Sidebar";
 import { Player } from "@components/Player/Player";
-import { useAppSelector } from '../../hooks/store';
+import { TrackType } from '../../types/types';
+import { getFavTracks } from '@api/trackApi';
 
-export const Favorite = () => {
+export const Favorite = async () => {
 
-    const favTracks=useAppSelector((store)=>store.playlist.currentPlaylist)
+    let tracks: TrackType[] = [];
+    let error: string | null = null;
+  
+    try {
+      tracks = await getFavTracks() ;
+    } catch (err) {
+      error =
+        err instanceof Error
+          ? "Ошибка загрузки треков. " + err.message
+          : "Неизвестная ошибка";
+    }
 
   return (
     <div className={styles.wrapper}>
     <div className={styles.container}>
       <main className={styles.main}>
         <Nav />
-        <CenterBlock tracks={favTracks} />
+        <CenterBlock tracks={tracks} />
         <Sidebar />
         <Player />
       </main>

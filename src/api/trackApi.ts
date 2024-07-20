@@ -13,6 +13,19 @@ export async function getTracks() {
   return response.json().then((tracksData)=>tracksData.data);
 }
 
+export async function getFavTracks() {
+  const response = await fetch(
+    "https://webdev-music-003b5b991590.herokuapp.com//catalog/track/favorite/all/"
+  );
+
+  if (!response.ok) {
+    throw new Error("Ошибка при отправке запроса");
+  }
+
+
+  return response.json().then((tracksData)=>tracksData.data);
+}
+
 export async function likeTrack({
   id,
   access,
