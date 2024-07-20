@@ -7,8 +7,8 @@ export const useInitiateLikeTracks = ()=>{
     const tokens=useAppSelector((state)=>state.auth.tokens);
 
     useEffect(()=>{
-        if (tokens.acsess) {
-            dispatch(getFavoiteTracks(tokens.acsess))
+        if (tokens.access) {
+            dispatch(getFavoiteTracks(tokens.access))
         }
     },[tokens,dispatch])
 }

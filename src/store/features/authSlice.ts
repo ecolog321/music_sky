@@ -6,6 +6,10 @@ export const getUser = createAsyncThunk(
   "user/getUser",
   async ({ email, password }: SinginFormType) => {
     const user = await fetchUser({ email, password });
+    if (!localStorage.user) {
+      localStorage.setItem("userEmail", email)
+      localStorage.setItem("userPassword", password)
+    }
     return user;
   }
 );

@@ -3,8 +3,7 @@ import { TrackType } from "../../../types/types";
 import styles from "./TrackList.module.css";
 
 import { Track } from "./Track/Track";
-import { useAppDispatch, useAppSelector } from "../../../hooks/store";
-import { setPlaylist } from "../../../store/features/playlistSlise";
+import { useAppSelector } from "../../../hooks/store";
 
 type Props = {
   tracks: TrackType[];
