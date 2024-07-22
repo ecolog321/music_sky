@@ -1,9 +1,9 @@
 export type UserType = {
-    id:number,
-    username:string,
-    first_name:string,
-    last_name:string,
-    email:string
+    id:number | null,
+    username:string | null,
+    first_name:string | null,
+    last_name:string |null,
+    email:string | null
 }
 
 export type TrackType = {

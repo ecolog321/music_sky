@@ -50,10 +50,6 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
     },
   ];
 
-  useEffect(()=>{
-    dispatch(saveUser([localStorage.getItem('email'), localStorage.getItem('access'), localStorage.getItem('refresh')]));
-  },[dispatch])
-
   const toogleAuthors = () =>
     Array.from(new Set(tracks.map((track) => track.author)));
   useEffect(() => {}, [filterValue]);
@@ -75,6 +71,16 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
   useEffect(() => {
     dispatch(setPlaylist({ tracks }));
   }, [dispatch, tracks]);
+
+  useEffect(() => {
+    dispatch(
+      saveUser([
+        localStorage.getItem("email"),
+        localStorage.getItem("access"),
+        localStorage.getItem("refresh"),
+      ])
+    );
+  }, [dispatch]);
 
   const changeFilterValue = (value: string) => {
     setFilterValue((prev) => (prev === value ? null : value));

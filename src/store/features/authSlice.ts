@@ -40,10 +40,16 @@ type AuthStateType = {
 };
 
 const initialState: AuthStateType = {
-  user: null,
+  user: {
+    id: null,
+    email: localStorage.getItem("email") ? localStorage.getItem("email") : null,
+    username: null,
+    first_name:null,
+    last_name:null
+  },
   tokens: {
-    access: null,
-    refresh: null,
+    access: localStorage.getItem('access') ? localStorage.getItem('access') :  null,
+    refresh: localStorage.getItem('refresh') ? localStorage.getItem('refresh') :  null,
   },
 };
 
@@ -55,9 +61,9 @@ const authSlice = createSlice({
       state.user = null;
       state.tokens.access = null;
       state.tokens.refresh = null;
-      localStorage.removeItem('email');
-      localStorage.removeItem('access');
-      localStorage.removeItem('refresh');
+      localStorage.removeItem("email");
+      localStorage.removeItem("access");
+      localStorage.removeItem("refresh");
     },
     saveUser: (state, action: PayloadAction<string[]>) => {
       if (state.user) {

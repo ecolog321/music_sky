@@ -21,6 +21,7 @@ export const Nav = () => {
   const toogleSignin = () => {
     if (userData) {
       dispatch(quitUser());
+      router.refresh();
     } else {
       router.push("/singin");
     }
@@ -55,7 +56,7 @@ export const Nav = () => {
             <a className={styles.menu__link}>Мой плейлист</a>
           </li>
           <li className={styles.menu__item} onClick={toogleSignin}>
-            <a className={styles.menu__link}>{userData ? "Выйти": "Войти"}</a>
+            <a className={styles.menu__link}>{userData ? "Выйти" : "Войти"}</a>
           </li>
         </ul>
       </div>
