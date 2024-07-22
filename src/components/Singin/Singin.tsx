@@ -4,7 +4,7 @@ import styles from "./singin.module.css";
 import clsx from "clsx";
 import { ChangeEvent, useState } from "react";
 import Link from "next/link";
-import { getTokens, getUser } from "../../store/features/authSlice";
+import { getTokens, getUser, saveUser } from "../../store/features/authSlice";
 import { useAppDispatch } from "../../hooks/store";
 import { useRouter } from "next/navigation";
 

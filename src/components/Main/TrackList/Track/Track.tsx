@@ -33,16 +33,11 @@ export const Track: FC<Props> = ({ track, tracks }) => {
   return (
     <div className={styles.playlist__item}>
       <div className={styles.playlist__track} onClick={toogleTrack}>
-        {isCurrentTrack && (
-          <div
-            className={clsx(styles.dote, isPlaying && styles.dote_playing)}
-          />
-        )}
         <div className={styles.track__title}>
           <div className={styles.track__title_image}>
             <Image
-              className={styles.track__title_svg}
-              src="/img/icons/note.svg"
+              className={isCurrentTrack ? clsx(styles.dote, isPlaying && styles.dote_playing) : styles.track__title_svg}
+              src={isCurrentTrack ? "/img/icons/track.png" : '/img/icons/note.svg'}
               width={24}
               height={24}
               alt="note"

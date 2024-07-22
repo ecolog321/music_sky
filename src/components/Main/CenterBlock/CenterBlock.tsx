@@ -11,6 +11,7 @@ import { filterFresh } from "@components/Filter/Filter.data";
 import { FC, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/store";
 import { setPlaylist } from "../../../store/features/playlistSlise";
+import { saveUser } from "../../../store/features/authSlice";
 
 type Props = {
   tracks: TrackType[];
@@ -48,6 +49,10 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
       selected: useAppSelector((store) => store.playlist.filterOptions.genre),
     },
   ];
+
+  useEffect(()=>{
+    dispatch(saveUser([localStorage.getItem('email'), localStorage.getItem('access'), localStorage.getItem('refresh')]));
+  },[dispatch])
 
   const toogleAuthors = () =>
     Array.from(new Set(tracks.map((track) => track.author)));

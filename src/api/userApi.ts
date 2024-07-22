@@ -67,18 +67,4 @@ export const fetchTokens = async ({ email, password }: SinginFormType) => {
   }
 };
 
-export const fetchFavTracks = async (access: string) => {
-  try {
-    const response = await fetch(
-      "https://webdev-music-003b5b991590.herokuapp.com/catalog/track/favorite/all/",
-      {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
-      }
-    );
-    return response.json();
-  } catch (error) {
-    throw new Error("Ошибка" + error);
-  }
-};
+

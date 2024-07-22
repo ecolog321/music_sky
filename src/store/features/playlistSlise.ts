@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TrackType } from "../../types/types";
-import { fetchFavTracks } from "@api/userApi";
+import { getFavTracks } from "@api/trackApi";
 
 export const getFavoiteTracks = createAsyncThunk(
   "playlist/getFavoriteTracks",
   async (access: string) => {
-    const favoriteTracks = await fetchFavTracks(access);
+    const favoriteTracks = await getFavTracks(access);
     return favoriteTracks;
   }
 );
@@ -155,14 +155,14 @@ const playlistSlice = createSlice({
       );
     },
   },
- /*  extraReducers(builder) {
+  extraReducers(builder) {
     builder.addCase(
       getFavoiteTracks.fulfilled,
-      (state, action: PayloadAction<number[]>) => {
-        state.likedTracks = action.payload;
+      (state, action) => {
+        state.likedTracks = action.payload.map((track:TrackType)=>track._id);
       }
     );
-  }, */
+  },
 });
 
 export const {

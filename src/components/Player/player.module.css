@@ -234,25 +234,23 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    margin-left: 26%;
+    padding-left:15%;
     width: 60px;
     height: 50px;
   }
   
-  .track_play__like,
-  .track_play__dislike {
-    padding: 5px;
-  }
-  
   .track_play__like_svg {
-    width: 14px;
-    height: 12px;
+    width: 24px;
+    height: 22px;
     fill: #653596;
     stroke: #653596;
   }
   
   .track_play__dislike {
-    margin-left: 28.5px;
+    width: 24px;
+    height: 22px;
+    fill: transparent;
+    stroke: #e7e7e7;
   }
   
   .track_play__dislike_svg {

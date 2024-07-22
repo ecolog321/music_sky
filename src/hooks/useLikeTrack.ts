@@ -6,7 +6,7 @@ import {
   likeTrack as likeTrackAction,
 } from "../store/features/playlistSlise";
 
-export const useLikeTracks = (idTrack: number) => {
+export const useLikeTracks = (idTrack: number=-1) => {
   const dispatch = useAppDispatch();
   const tokens = useAppSelector((state) => state.auth.tokens);
   const user = useAppSelector((state) => state.auth.user);

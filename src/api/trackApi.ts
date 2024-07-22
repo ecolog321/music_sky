@@ -9,22 +9,24 @@ export async function getTracks() {
     throw new Error("Ошибка при отправке запроса");
   }
 
-
-  return response.json().then((tracksData)=>tracksData.data);
+  return response.json().then((tracksData) => tracksData.data);
 }
 
-export async function getFavTracks() {
-  const response = await fetch(
-    "https://webdev-music-003b5b991590.herokuapp.com//catalog/track/favorite/all/"
-  );
-
-  if (!response.ok) {
-    throw new Error("Ошибка при отправке запроса");
+export const getFavTracks = async (access: string) => {
+  try {
+    const response = await fetch(
+      "https://webdev-music-003b5b991590.herokuapp.com/catalog/track/favorite/all/",
+      {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      }
+    );
+    return response.json().then((tracksData) => tracksData.data);
+  } catch (error) {
+    throw new Error("Ошибка" + error);
   }
-
-
-  return response.json().then((tracksData)=>tracksData.data);
-}
+};
 
 export async function likeTrack({
   id,

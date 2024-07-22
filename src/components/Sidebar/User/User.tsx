@@ -9,7 +9,8 @@ export const User = () => {
   useInitiateLikeTracks();
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const userName = useAppSelector((state) => state.auth.user?.username);
+  const userName = useAppSelector((state) => state.auth.user?.email);
+  console.log(userName)
 
   if (!userName) {
     return null;
