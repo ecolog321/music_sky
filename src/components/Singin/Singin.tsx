@@ -13,7 +13,7 @@ export const Singin = () => {
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState<string | null>(null);
-  const EMAIL_VAL= /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
+  const EMAIL_VAL= /^\S+@\S+\.\S+$/i;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -31,7 +31,7 @@ export const Singin = () => {
       setError("Некорректный формат почты");
       return;
     }
-    if (formData.password.length < 4) {
+    if (formData.password.length < 6) {
       setError("Пароль слишком короткий");
       return;
     }
@@ -41,9 +41,8 @@ export const Singin = () => {
         dispatch(getTokens(formData)).unwrap(),
       ]);
       router.push("/");
-    } catch (err) {
-      console.log(err)
-      alert(err);
+    } catch (errors) {
+      alert({errors})
     }
   };
 

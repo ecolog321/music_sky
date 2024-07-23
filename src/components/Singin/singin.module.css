@@ -126,6 +126,8 @@
   .modal__btn_enter {
     width: 278px;
     height: 52px;
+    font-weight: 400;
+    font-size: 18px;
     background-color: #580ea2;
     border-radius: 6px;
     margin-top: 60px;

@@ -47,7 +47,7 @@
 
 .modal__form_login {
   width: 366px;
-  height: 589px;
+  height: 449px;
   background-color: #FFFFFF;
   border-radius: 12px;
   display: -webkit-box;
@@ -127,9 +127,18 @@
   color: #D0CECE;
 }
 
+.error__container {
+  padding-top: 10px;
+  color: black;
+
+}
+
 .modal__btn_signup_ent {
   width: 278px;
   height: 62px;
+  font-weight: 400;
+  font-size: 18px;
+  color: #ffffff;
   background-color: #580EA2;
   border-radius: 6px;
   margin-left: 4px;

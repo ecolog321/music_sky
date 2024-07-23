@@ -14,9 +14,11 @@ export const Singup = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    username: "",
+    username:'',
   });
   const [repeatedPassword, setRepeatedPassword] = useState({ rePassword: "" });
+  const [error, setError]=useState<string |null>(null)
+  const EMAIL_VAL= /^\S+@\S+\.\S+$/i;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -40,6 +42,14 @@ export const Singup = () => {
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if (!EMAIL_VAL.test(formData.email)) {
+      setError("Некорректный формат почты");
+      return;
+    }
+    if (formData.password.length < 6) {
+      setError("Пароль слишком короткий");
+      return;
+    }
     if (repeatedPassword.rePassword === formData.password) {
       try {
         await Promise.all([dispatch(singupUser(formData)).unwrap()]);
@@ -48,7 +58,7 @@ export const Singup = () => {
         throw new Error("Ошибка" + error);
       }
     } else {
-      throw new Error("Пароли не совпадают");
+     setError('Пароли не совпадают')
     }
   };
 
@@ -76,14 +86,6 @@ export const Singup = () => {
               onChange={handleChange}
             />
             <input
-              className={clsx(styles.modal__input, styles.login)}
-              type="text"
-              name="username"
-              placeholder="Никнейм"
-              value={formData.username}
-              onChange={handleChange}
-            />
-            <input
               className={clsx(styles.modal__input, styles.password_first)}
               type="password"
               name="password"
@@ -100,17 +102,12 @@ export const Singup = () => {
               value={repeatedPassword.rePassword}
             />
             <div>
+              {error && <p className={styles.error__container}>{error}</p>}
               <button
                 className={styles.modal__btn_signup_ent}
                 onClick={handleSubmit}
               >
                 Зарегестрироваться
-              </button>
-              <h2 className={styles.modal__input}>
-                Уже есть акккаунт?
-              </h2>
-              <button className={styles.modal__btn_signup_ent}>
-                <Link href={"/singin"}> Войти</Link>
               </button>
             </div>
           </form>

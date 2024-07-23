@@ -202,9 +202,9 @@ export const Player = () => {
                 </svg>
               </div>
 
-              <div className={styles.volume__progress}>
+              <div className={clsx(styles.volumeProgress, styles.btn)}>
                 <input
-                  className={styles.volume__progress_line}
+                  className={clsx(styles.volumeProgressLine, styles.btn)}
                   type="range"
                   min="0"
                   max="1"

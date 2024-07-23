@@ -15,15 +15,12 @@ export const fetchUser = async ({ email, password }: SinginFormType) => {
         },
       }
     );
-    if (response.status === 200) {
-      const responseData = await response.json();
-      console.log(responseData)
-      return responseData;
-    }
-  } catch (error) {
-    console.log(error);
-    alert(error);
-    throw new Error("Ошибка" + error);
+    const responseData = await response.json();
+    return responseData;
+  } catch (err) {
+    if (err instanceof Error) {
+      alert(err.message)
+    } 
   }
 };
 
@@ -49,8 +46,10 @@ export const fetchRegistration = async ({
     );
     const responseData = await response.json();
     return responseData;
-  } catch (error) {
-    throw new Error("Ошибка" + error);
+  } catch (err) {
+    if (err instanceof Error) {
+      alert(err.message)
+    } 
   }
 };
 
@@ -69,13 +68,12 @@ export const fetchTokens = async ({ email, password }: SinginFormType) => {
         },
       }
     );
-    if (response.status === 200) {
-      const responseData = await response.json();
-      return responseData;
-    }
-  } catch (error) {
-    console.log(error);
-    alert(error);
-    throw new Error("Ошибка" + error);
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (err) {
+    if (err instanceof Error) {
+      alert(err.message)
+    } 
   }
 };

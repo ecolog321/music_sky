@@ -15,7 +15,7 @@ export const getUser = createAsyncThunk(
       localStorage.setItem("email", email);
       return user;
     } catch (error) {
-      alert(error)
+     alert (error)
     }
   }
 );
@@ -38,7 +38,7 @@ export const getTokens = createAsyncThunk(
       localStorage.setItem("refresh", tokens.refresh);
       return tokens;
     } catch (error) {
-      alert(error)
+      alert (error)
     }
   }
 );
