@@ -9,10 +9,9 @@ export const User = () => {
   useInitiateLikeTracks();
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const userName = useAppSelector((state) => state.auth.user?.email);
-  console.log(userName)
+  const userEmail = useAppSelector((state) => state.auth.user?.email);
 
-  if (!userName) {
+  if (!userEmail) {
     return null;
   }
 
@@ -23,7 +22,7 @@ export const User = () => {
 
   return (
     <div className={styles.sidebar__personal}>
-      <p className={styles.sidebar__parsonal_name}>{userName}</p>
+      <p className={styles.sidebar__parsonal_name}>{userEmail}</p>
       <div className={styles.sidebar__icon} onClick={handleLogout}>
         <svg className={styles.sidebar__quit}>
           <use xlinkHref="/img/icons/sprite.svg#logout"></use>

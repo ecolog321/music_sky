@@ -12,6 +12,8 @@ export const Singin = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState<string | null>(null);
+  const EMAIL_VAL= /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -25,14 +27,23 @@ export const Singin = () => {
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if (!EMAIL_VAL.test(formData.email)) {
+      setError("Некорректный формат почты");
+      return;
+    }
+    if (formData.password.length < 4) {
+      setError("Пароль слишком короткий");
+      return;
+    }
     try {
       await Promise.all([
-        dispatch(getTokens(formData)).unwrap(),
         dispatch(getUser(formData)).unwrap(),
+        dispatch(getTokens(formData)).unwrap(),
       ]);
       router.push("/");
-    } catch (error) {
-      throw new Error("Ошибка" + error);
+    } catch (err) {
+      console.log(err)
+      alert(err);
     }
   };
 
@@ -67,6 +78,7 @@ export const Singin = () => {
               value={formData.password}
               onChange={handleChange}
             />
+            {error && <p className={styles.error__container}>{error}</p>}
             <button className={styles.modal__btn_enter} onClick={handleSubmit}>
               Войти
             </button>

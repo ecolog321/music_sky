@@ -4,6 +4,12 @@
     overflow: hidden;
   
   }
+
+  .error__container {
+    padding-top: 10px;
+    color: black;
+
+  }
   
   .container_enter {
     max-width: 100%;

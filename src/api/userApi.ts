@@ -15,14 +15,23 @@ export const fetchUser = async ({ email, password }: SinginFormType) => {
         },
       }
     );
-    const responseData = await response.json();
-    return responseData;
+    if (response.status === 200) {
+      const responseData = await response.json();
+      console.log(responseData)
+      return responseData;
+    }
   } catch (error) {
+    console.log(error);
+    alert(error);
     throw new Error("Ошибка" + error);
   }
 };
 
-export const fetchRegistration = async ({ email, password, username }: SingupFormType) => {
+export const fetchRegistration = async ({
+  email,
+  password,
+  username,
+}: SingupFormType) => {
   try {
     const response = await fetch(
       "https://webdev-music-003b5b991590.herokuapp.com/user/signup/",
@@ -60,11 +69,13 @@ export const fetchTokens = async ({ email, password }: SinginFormType) => {
         },
       }
     );
-    const responseData = await response.json();
-    return responseData;
+    if (response.status === 200) {
+      const responseData = await response.json();
+      return responseData;
+    }
   } catch (error) {
+    console.log(error);
+    alert(error);
     throw new Error("Ошибка" + error);
   }
 };
-
-

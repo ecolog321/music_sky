@@ -10,9 +10,13 @@ import { fetchRegistration, fetchTokens, fetchUser } from "@api/userApi";
 export const getUser = createAsyncThunk(
   "user/getUser",
   async ({ email, password }: SinginFormType) => {
-    const user = await fetchUser({ email, password });
-    localStorage.setItem("email", email);
-    return user;
+    try {
+      const user = await fetchUser({ email, password });
+      localStorage.setItem("email", email);
+      return user;
+    } catch (error) {
+      alert(error)
+    }
   }
 );
 
@@ -26,11 +30,16 @@ export const singupUser = createAsyncThunk(
 
 export const getTokens = createAsyncThunk(
   "user/getTokens",
+
   async ({ email, password }: SinginFormType) => {
-    const tokens = await fetchTokens({ email, password });
-    localStorage.setItem("access", tokens.access);
-    localStorage.setItem("refresh", tokens.refresh);
-    return tokens;
+    try {
+      const tokens = await fetchTokens({ email, password });
+      localStorage.setItem("access", tokens.access);
+      localStorage.setItem("refresh", tokens.refresh);
+      return tokens;
+    } catch (error) {
+      alert(error)
+    }
   }
 );
 
@@ -44,12 +53,16 @@ const initialState: AuthStateType = {
     id: null,
     email: localStorage.getItem("email") ? localStorage.getItem("email") : null,
     username: null,
-    first_name:null,
-    last_name:null
+    first_name: null,
+    last_name: null,
   },
   tokens: {
-    access: localStorage.getItem('access') ? localStorage.getItem('access') :  null,
-    refresh: localStorage.getItem('refresh') ? localStorage.getItem('refresh') :  null,
+    access: localStorage.getItem("access")
+      ? localStorage.getItem("access")
+      : null,
+    refresh: localStorage.getItem("refresh")
+      ? localStorage.getItem("refresh")
+      : null,
   },
 };
 
