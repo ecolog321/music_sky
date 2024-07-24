@@ -18,9 +18,7 @@ export const fetchUser = async ({ email, password }: SinginFormType) => {
     const responseData = await response.json();
     return responseData;
   } catch (err) {
-    if (err instanceof Error) {
-      alert(err.message)
-    } 
+console.log(err)
   }
 };
 

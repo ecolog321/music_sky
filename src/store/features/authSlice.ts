@@ -94,10 +94,22 @@ const authSlice = createSlice({
       }
     );
     builder.addCase(
+      getUser.rejected,
+      (state, action) => {
+        console.log('Error', action.error.message);
+      }
+    );
+    builder.addCase(
       getTokens.fulfilled,
       (state, action: PayloadAction<Tokens>) => {
         state.tokens.access = action.payload.access;
         state.tokens.refresh = action.payload.refresh;
+      }
+    );
+    builder.addCase(
+      getTokens.rejected,
+      (state, action) => {
+        console.log("Error", action.error.message)
       }
     );
     builder.addCase(
