@@ -13,7 +13,7 @@ export const Singin = () => {
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState<string | null>(null);
-  const EMAIL_VAL= /^\S+@\S+\.\S+$/i;
+  const EMAIL_VAL = /^\S+@\S+\.\S+$/i;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -41,8 +41,8 @@ export const Singin = () => {
         dispatch(getTokens(formData)).unwrap(),
       ]);
       router.push("/");
-    } catch (errors) {
-      alert({errors})
+    } catch (err: any) {
+      setError(err.message);
     }
   };
 

@@ -1,4 +1,9 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSlice,
+  PayloadAction,
+  SerializedError,
+} from "@reduxjs/toolkit";
 import {
   SinginFormType,
   SingupFormType,
@@ -10,13 +15,9 @@ import { fetchRegistration, fetchTokens, fetchUser } from "@api/userApi";
 export const getUser = createAsyncThunk(
   "user/getUser",
   async ({ email, password }: SinginFormType) => {
-    try {
-      const user = await fetchUser({ email, password });
-      localStorage.setItem("email", email);
-      return user;
-    } catch (error) {
-     alert (error)
-    }
+    const user = await fetchUser({ email, password });
+    localStorage.setItem("email", email);
+    return user;
   }
 );
 
@@ -32,20 +33,17 @@ export const getTokens = createAsyncThunk(
   "user/getTokens",
 
   async ({ email, password }: SinginFormType) => {
-    try {
-      const tokens = await fetchTokens({ email, password });
-      localStorage.setItem("access", tokens.access);
-      localStorage.setItem("refresh", tokens.refresh);
-      return tokens;
-    } catch (error) {
-      alert (error)
-    }
+    const tokens = await fetchTokens({ email, password });
+    localStorage.setItem("access", tokens.access);
+    localStorage.setItem("refresh", tokens.refresh);
+    return tokens;
   }
 );
 
 type AuthStateType = {
   user: UserType | null;
   tokens: Tokens;
+  error: SerializedError | null;
 };
 
 const initialState: AuthStateType = {
@@ -64,6 +62,7 @@ const initialState: AuthStateType = {
       ? localStorage.getItem("refresh")
       : null,
   },
+  error: null,
 };
 
 const authSlice = createSlice({
@@ -93,12 +92,9 @@ const authSlice = createSlice({
         state.user = action.payload;
       }
     );
-    builder.addCase(
-      getUser.rejected,
-      (state, action) => {
-        console.log('Error', action.error.message);
-      }
-    );
+    builder.addCase(getUser.rejected, (state, action) => {
+      state.error = action.error;
+    });
     builder.addCase(
       getTokens.fulfilled,
       (state, action: PayloadAction<Tokens>) => {
@@ -106,12 +102,9 @@ const authSlice = createSlice({
         state.tokens.refresh = action.payload.refresh;
       }
     );
-    builder.addCase(
-      getTokens.rejected,
-      (state, action) => {
-        console.log("Error", action.error.message)
-      }
-    );
+    builder.addCase(getTokens.rejected, (state, action) => {
+      state.error = action.error;
+    });
     builder.addCase(
       singupUser.fulfilled,
       (state, action: PayloadAction<UserType>) => {

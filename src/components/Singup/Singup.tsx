@@ -5,7 +5,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
-import { getTokens, singupUser } from "../../store/features/authSlice";
+import { singupUser } from "../../store/features/authSlice";
 import { useAppDispatch } from "../../hooks/store";
 
 export const Singup = () => {
@@ -52,10 +52,10 @@ export const Singup = () => {
     }
     if (repeatedPassword.rePassword === formData.password) {
       try {
-        await Promise.all([dispatch(singupUser(formData)).unwrap()]);
+        await Promise.all([dispatch(singupUser({...formData, username:formData.email})).unwrap()]);
         router.push("/singin");
-      } catch (error) {
-        throw new Error("Ошибка" + error);
+      } catch (error:any) {
+        setError(error.message)
       }
     } else {
      setError('Пароли не совпадают')
