@@ -5,6 +5,8 @@ import { FC } from "react";
 import sharedStyles from "../shared.module.css";
 import styles from "./Filter.module.css";
 import clsx from "clsx";
+import { useAppDispatch } from "../../hooks/store";
+import { setFilters } from "../../store/features/playlistSlise";
 
 type Props = {
   title: string;
@@ -12,14 +14,33 @@ type Props = {
   value: string;
   isOpen: boolean;
   onClick: (value: string) => void;
+  selected: string[];
 };
 
-export const Filter: FC<Props> = ({ isOpen, value, onClick, title, list }) => {
-  const [isPick, setIsPick] = useState<string | null>(null);
+export const Filter: FC<Props> = ({
+  isOpen,
+  value,
+  onClick,
+  title,
+  list,
+  selected = [],
+}) => {
+  const dispatch = useAppDispatch();
 
-  const changePickItem = (value: string) => {
-    setIsPick((prev) => (prev === value ? null : value));
-    console.log(isPick);
+
+  const toogleFilter = (item: string) => {
+
+    if (value === "release") {
+      dispatch(setFilters({ order: item }));
+      return;
+    }
+    dispatch(
+      setFilters({
+        [value]: selected.includes(item)
+          ? selected.filter((el) => el !== item)
+          : [...selected, item],
+      })
+    );
   };
 
   return (
@@ -39,13 +60,13 @@ export const Filter: FC<Props> = ({ isOpen, value, onClick, title, list }) => {
             return (
               <li
                 className={clsx(
-                  isPick === item
+                  selected.includes(item)
                     ? styles.filter__items
                     : styles.filre__items_pick
                 )}
                 key={id}
                 onClick={() => {
-                  changePickItem(item);
+                  toogleFilter(item);
                 }}
               >
                 {item}

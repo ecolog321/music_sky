@@ -3,12 +3,32 @@
 import Image from "next/image";
 import styles from "./Nav.module.css";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "../../hooks/store";
+import { quitUser } from "../../store/features/authSlice";
 
 export const Nav = () => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const [showNav, isShowNav] = useState<boolean>(false);
+
+  const userData = useAppSelector((store) => store.auth.user?.email);
 
   const toogleNavi = () => {
     isShowNav(!showNav);
+  };
+
+  const toogleSignin = () => {
+    if (userData) {
+      dispatch(quitUser());
+      router.refresh();
+    } else {
+      router.push("/singin");
+    }
+  };
+
+  const goToFav = () => {
+    router.push("favorite");
   };
 
   return showNav ? (
@@ -32,11 +52,11 @@ export const Nav = () => {
           <li className={styles.menu__item}>
             <a className={styles.menu__link}>Главное</a>
           </li>
-          <li className={styles.menu__item}>
+          <li className={styles.menu__item} onClick={goToFav}>
             <a className={styles.menu__link}>Мой плейлист</a>
           </li>
-          <li className={styles.menu__item}>
-            <a className={styles.menu__link}>Войти</a>
+          <li className={styles.menu__item} onClick={toogleSignin}>
+            <a className={styles.menu__link}>{userData ? "Выйти" : "Войти"}</a>
           </li>
         </ul>
       </div>

@@ -1,17 +1,11 @@
 import Image from "next/image";
 import styles from "./sidebar.module.css";
+import { User } from "./User/User";
 
 export const Sidebar = () => {
   return (
     <div className={styles.main__sidebar}>
-      <div className={styles.sidebar__personal}>
-        <p className={styles.sidebar__parsonal_name}></p>
-        <div className={styles.sidebar__icon}>
-          <svg className={styles.sidebar__quit} >
-            <use xlinkHref="/img/icons/sprite.svg#logout"></use>
-          </svg>
-        </div>
-      </div>
+      <User/>
       <div className={styles.sidebar__block}>
         <div className={styles.sidebar__list}>
           <div className={styles.sidebar__item}>

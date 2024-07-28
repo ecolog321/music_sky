@@ -3,6 +3,7 @@ import { TrackType } from "../../../types/types";
 import styles from "./TrackList.module.css";
 
 import { Track } from "./Track/Track";
+import { useAppSelector } from "../../../hooks/store";
 
 type Props = {
   tracks: TrackType[];
@@ -10,10 +11,12 @@ type Props = {
 
 export const TrackList: FC<Props> = ({ tracks }) => {
 
+  const filteredTracks=useAppSelector((store)=>store.playlist.filteredPlaylist)
+
   return (
     <div className={styles.content__playlist}>
-      {tracks.map((value: TrackType) => (
-        <Track key={value.id} track={value} tracks={tracks} />
+      {filteredTracks.map((value: TrackType) => (
+        <Track key={value._id} track={value} tracks={tracks} />
       ))}
     </div>
   );

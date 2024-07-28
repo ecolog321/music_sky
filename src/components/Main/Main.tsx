@@ -19,6 +19,8 @@ export const Main = async () => {
         : "Неизвестная ошибка";
   }
 
+
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
