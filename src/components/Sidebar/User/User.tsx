@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/store";
 import { quitUser } from "../../../store/features/authSlice";
 import styles from "./user.module.css";
 import { useInitiateLikeTracks } from "../../../hooks/likes";
+import { clearTrack } from "../../../store/features/playlistSlise";
 
 export const User = () => {
   useInitiateLikeTracks();
@@ -17,6 +18,7 @@ export const User = () => {
 
   const handleLogout = () => {
     dispatch(quitUser());
+    dispatch(clearTrack());
     router.push("/singin");
   };
 

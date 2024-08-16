@@ -28,7 +28,11 @@ export const Nav = () => {
   };
 
   const goToFav = () => {
-    router.push("favorite");
+    router.push("/tracks/favorite");
+  };
+
+  const goToMain = () => {
+    router.push("/");
   };
 
   return showNav ? (
@@ -49,7 +53,7 @@ export const Nav = () => {
       </div>
       <div className={styles.nav__menu}>
         <ul className={styles.menu__list}>
-          <li className={styles.menu__item}>
+          <li className={styles.menu__item} onClick={goToMain}>
             <a className={styles.menu__link}>Главное</a>
           </li>
           <li className={styles.menu__item} onClick={goToFav}>

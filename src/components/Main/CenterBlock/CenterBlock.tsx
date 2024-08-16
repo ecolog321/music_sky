@@ -75,9 +75,9 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
   useEffect(() => {
     dispatch(
       saveUser([
-        localStorage.getItem("email"),
-        localStorage.getItem("access"),
-        localStorage.getItem("refresh"),
+        localStorage.getItem("email") || "",
+        localStorage.getItem("access") || "",
+        localStorage.getItem("refresh") || "",
       ])
     );
   }, [dispatch]);

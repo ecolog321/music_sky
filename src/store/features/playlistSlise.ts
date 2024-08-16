@@ -61,6 +61,9 @@ const playlistSlice = createSlice({
         () => 0.5 - Math.random()
       );
     },
+    clearTrack: (state)=>{
+      state.currentTrack=null;
+    },
     setPlaylist: (state, action: PayloadAction<{ tracks: TrackType[] }>) => {
       state.currentPlaylist = action.payload.tracks;
       state.filteredPlaylist = action.payload.tracks;
@@ -175,5 +178,6 @@ export const {
   setPlaylist,
   likeTrack,
   dislikeTrack,
+  clearTrack,
 } = playlistSlice.actions;
 export const playlistReducer = playlistSlice.reducer;

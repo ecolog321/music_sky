@@ -16,6 +16,8 @@ type Props = {
   track: TrackType;
 };
 
+export const isEven = (num:number): boolean=> num % 2 === 0;
+
 export const Track: FC<Props> = ({ track, tracks }) => {
   const { name, author, album, duration_in_seconds } = track;
   const dispatch = useAppDispatch();
@@ -26,7 +28,7 @@ export const Track: FC<Props> = ({ track, tracks }) => {
   const { isLiked, handleLike } = useLikeTracks(track._id);
 
   const toogleTrack = () => {
-    dispatch(setCurrentTrack({ currentTrack: track, currentPlaylist: tracks }));
+    dispatch(setCurrentTrack({ currentTrack: track, currentPlaylist: tracks}));
     dispatch(setIsPlaying(true));
   };
 
