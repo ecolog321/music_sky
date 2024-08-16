@@ -11,6 +11,7 @@ import {
   setIsPlaying,
   setIsShuffled,
 } from "../../store/features/playlistSlise";
+import { useLikeTracks } from "../../hooks/useLikeTrack";
 
 export const Player = () => {
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
@@ -25,6 +26,8 @@ export const Player = () => {
   const isShuffled = useAppSelector((state) => state.playlist.isShuffled);
 
   const dispatch = useAppDispatch();
+
+  const { isLiked, handleLike } = useLikeTracks(currentTrack?._id);
 
   const tooglePlay = () => {
     const audio = audioRef.current;
@@ -43,9 +46,8 @@ export const Player = () => {
   };
 
   const toogleShuffle = () => {
-
-   dispatch(setIsShuffled(!isShuffled))
-    console.log(isShuffled)
+    dispatch(setIsShuffled(!isShuffled));
+    console.log(isShuffled);
   };
 
   const handleNextSong = () => {
@@ -69,7 +71,7 @@ export const Player = () => {
       const audio = audioRef.current;
       audio?.play();
     }
-  }, [currentTrack]);
+  }, [currentTrack, isPlaying]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -175,11 +177,17 @@ export const Player = () => {
                 </div>
               </div>
 
-              <div className={styles.track_play__dislike}>
-                <svg className={styles.track_play__dislike_svg}>
+              <div className={styles.track_play__like_dis} onClick={handleLike}>
+                <svg
+                  className={clsx(
+                    isLiked
+                      ? styles.track_play__like_svg
+                      : styles.track_play__dislike
+                  )}
+                >
                   <use
                     className=""
-                    xlinkHref="/img/icons/sprite.svg#icon-dislike"
+                    xlinkHref="/img/icons/sprite.svg#icon-like"
                   ></use>
                 </svg>
               </div>
@@ -194,9 +202,9 @@ export const Player = () => {
                 </svg>
               </div>
 
-              <div className={styles.volume__progress}>
+              <div className={clsx(styles.volumeProgress, styles.btn)}>
                 <input
-                  className={styles.volume__progress_line}
+                  className={clsx(styles.volumeProgressLine, styles.btn)}
                   type="range"
                   min="0"
                   max="1"
