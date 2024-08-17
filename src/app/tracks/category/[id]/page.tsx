@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { getCategoryPlaylist } from "@api/categoryApi";
 import { setPlaylist } from "../../../../store/features/playlistSlise";
 import { TrackType } from "../../../../types/types";
+import { getTracks } from "@api/trackApi";
 
 export default function CategoryPage() {
   const id = useParams()?.id;
@@ -14,7 +15,6 @@ export default function CategoryPage() {
   const dispatch = useAppDispatch();
   const access = useAppSelector((store) => store.auth.tokens.access);
   const tracks = useAppSelector((store) => store.playlist.filteredPlaylist);
-  const [newTracks, setNewTracks] = useState<TrackType[]>([]);
 
   if (!access) {
     router.push("/singin");
@@ -24,19 +24,17 @@ export default function CategoryPage() {
 
   useEffect(() => {
     if (access) {
-      getCategoryPlaylist(access, id).then((response) => {
-        const tracksId: [] = response.data.items;
-        for (let index = 0; index < tracks.length; index++) {
-          const addTrack: TrackType | undefined = tracks.find(
-            (track) => track._id === tracksId[index]
+      Promise.all([getTracks(), getCategoryPlaylist(access, id)]).then(
+        ([tracksData, collectionId]) => {
+          dispatch(setPlaylist({ tracks: tracksData }));
+          const tracksId: number[] = collectionId.data.items;
+          const newTracks = tracksData.filter((track: any) =>
+            tracksId.includes(track._id)
           );
-          addTrack ? setNewTracks([...newTracks, addTrack]) : null;
+          dispatch(setPlaylist({ tracks: newTracks }));
         }
-
-        dispatch(setPlaylist({tracks:newTracks}))
-
-      });
+      );
     }
-  }, [access, id, dispatch, tracks, newTracks]);
+  }, [dispatch, access]);
   return <CenterBlock tracks={tracks} />;
 }

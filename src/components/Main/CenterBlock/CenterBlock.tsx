@@ -8,9 +8,9 @@ import clsx from "clsx";
 import { TrackType } from "../../../types/types";
 import { Filter } from "@components/Filter/Filter";
 import { filterFresh } from "@components/Filter/Filter.data";
-import { FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/store";
-import { setPlaylist } from "../../../store/features/playlistSlise";
+import { setFilters, setPlaylist } from "../../../store/features/playlistSlise";
 import { saveUser } from "../../../store/features/authSlice";
 
 type Props = {
@@ -23,8 +23,8 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
   const [release, setRelease] = useState<string[]>([]);
   const [genre, setGenre] = useState<string[]>([]);
   const [currentFilter, setCurrentFilter] = useState<string[]>([]);
+  const [searchField, setSearchField]=useState('');
   const dispatch = useAppDispatch();
-
   const filteredTracks = useAppSelector(
     (store) => store.playlist.filteredPlaylist
   );
@@ -50,6 +50,10 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
     },
   ];
 
+  const handleSearchField = (e:ChangeEvent<HTMLInputElement>)=> {
+    setSearchField(e.target.value);
+  }
+
   const toogleAuthors = () =>
     Array.from(new Set(tracks.map((track) => track.author)));
   useEffect(() => {}, [filterValue]);
@@ -71,6 +75,10 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
   useEffect(() => {
     dispatch(setPlaylist({ tracks }));
   }, [dispatch, tracks]);
+
+  useEffect(()=>{
+    dispatch(setFilters({searchField}))
+  },[searchField])
 
   useEffect(() => {
     dispatch(
@@ -103,6 +111,7 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
 
   return (
     <div className={styles.main__centerblock}>
+     {/*  // вынести вкомпонент */}
       <div className={styles.centerblock__search}>
         <svg className={styles.search__svg}>
           <use xlinkHref="/img/icons/sprite.svg#icon-search"></use>
@@ -112,6 +121,7 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
           className={styles.search__text}
           placeholder="Поиск"
           name="search"
+          onChange={handleSearchField}
         />
       </div>
       <h2 className={styles.centerblock__h2}>Треки</h2>

@@ -1,9 +1,9 @@
 
-import { isEven, Track } from "./Track";
+import { Track } from "./Track";
 import renderer from "react-test-renderer";
 import ReduxProvider from "../../../../store/ReduxProvider";
 
-describe("track", () => {
+describe("TrackComponent", () => {
   it("render track", () => {
     const track = {
       _id: 1,
@@ -26,11 +26,5 @@ describe("track", () => {
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
-  it("must determine even number",()=>{
-    expect(isEven(6)).toBe(true)
-    expect(isEven(5)).toBe(false)
-    expect(isEven(10)).toBe(true)
-    expect(isEven(5.5)).toBe(false)
-    expect(isEven(0)).toBe(true)
-  })
+
 });

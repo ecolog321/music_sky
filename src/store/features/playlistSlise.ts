@@ -161,7 +161,7 @@ const playlistSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(
       getFavoiteTracks.fulfilled,
-      (state, action) => {
+      (state, action: PayloadAction<TrackType[]>) => {
         state.likedTracks = action.payload.map((track:TrackType)=>track._id);
       }
     );
