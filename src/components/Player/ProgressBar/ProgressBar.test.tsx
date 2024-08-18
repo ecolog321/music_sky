@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef } from "react";
+
 import { ProgressBar } from "./ProgressBar";
 import renderer from "react-test-renderer";
 

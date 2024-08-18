@@ -110,7 +110,11 @@ exports[`TrackComponent render track 1`] = `
     </div>
     <div
       className="content__playlist"
-    />
+    >
+      <h2>
+        Треки не найдены
+      </h2>
+    </div>
   </div>
 </div>
 `;

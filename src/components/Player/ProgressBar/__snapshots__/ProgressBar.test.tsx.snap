@@ -5,6 +5,7 @@ exports[`Component ProgressBar render progressbar 1`] = `
   className="styledProgressInput"
   max={100}
   min="0"
+  name="progress"
   onChange={[Function]}
   step={0.5}
   type="range"

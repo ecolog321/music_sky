@@ -10,14 +10,21 @@ type Props = {
 };
 
 export const TrackList: FC<Props> = ({ tracks }) => {
+  const filteredTracks = useAppSelector(
+    (store) => store.playlist.filteredPlaylist
+  );
 
-  const filteredTracks=useAppSelector((store)=>store.playlist.filteredPlaylist)
+  console.log(filteredTracks);
 
   return (
     <div className={styles.content__playlist}>
-      {filteredTracks.map((value: TrackType) => (
-        <Track key={value._id} track={value} tracks={tracks} />
-      ))}
+      {filteredTracks.length >= 1 ? (
+        filteredTracks.map((value: TrackType) => (
+          <Track key={value._id} track={value} tracks={tracks} />
+        ))
+      ) : (
+        <h2>Треки не найдены</h2>
+      )}
     </div>
   );
 };
