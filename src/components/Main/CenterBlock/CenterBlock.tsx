@@ -51,7 +51,7 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
 
   const handleSearchField = useCallback((e:ChangeEvent<HTMLInputElement>)=> setSearchField(e.target.value),[])
 
-  const toogleAuthors = () => createUniqueArray(tracks, "author");
+  const toogleAuthors = () =>createUniqueArray(tracks, "author");
 
   const toogleGenre = () => createUniqueArray(tracks, "genre");
 

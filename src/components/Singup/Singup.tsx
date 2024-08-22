@@ -54,8 +54,8 @@ export const Singup = () => {
       try {
         await Promise.all([dispatch(singupUser({...formData, username:formData.email})).unwrap()]);
         router.push("/singin");
-      } catch (error:any) {
-        setError(error.message)
+      } catch (err:unknown) {
+        err instanceof Error ?  setError(err.message) : null 
       }
     } else {
      setError('Пароли не совпадают')

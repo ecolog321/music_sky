@@ -41,8 +41,8 @@ export const Singin = () => {
         dispatch(getTokens(formData)).unwrap(),
       ]);
       router.push("/tracks");
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      err instanceof Error ?  setError(err.message) : null 
     }
   };
 

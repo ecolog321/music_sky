@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { getCategoryPlaylist } from "@api/categoryApi";
 import { setPlaylist } from "../../../../store/features/playlistSlise";
 import { getTracks } from "@api/trackApi";
+import { TrackType } from "../../../../types/types";
 
 export default function CategoryPage() {
   const id = useParams()?.id;
@@ -25,7 +26,7 @@ export default function CategoryPage() {
         ([tracksData, collectionId]) => {
           dispatch(setPlaylist({ tracks: tracksData }));
           const tracksId: number[] = collectionId.data.items;
-          const newTracks = tracksData.filter((track: any) =>
+          const newTracks = tracksData.filter((track: TrackType) =>
             tracksId.includes(track._id)
           );
           dispatch(setPlaylist({ tracks: newTracks }));
