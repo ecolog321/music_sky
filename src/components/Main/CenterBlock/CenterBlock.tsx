@@ -67,7 +67,7 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
 
   useEffect(() => {
     dispatch(setFilters({ searchField }));
-  }, [searchField]);
+  }, [searchField,dispatch]);
 
   useEffect(() => {
     dispatch(
@@ -80,16 +80,18 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
   }, [dispatch]);
 
   const changeFilterValue = (value: string) => {
-    setFilterValue((prev) => (prev === value ? null : value));
+    setFilterValue((prev)=>prev=== value ? null : value)
 
     switch (value) {
       case "author":
         setCurrentFilter(authors);
         break;
       case "genre":
+     
         setCurrentFilter(genre);
         break;
       case "release":
+   
         setCurrentFilter(release);
         break;
 

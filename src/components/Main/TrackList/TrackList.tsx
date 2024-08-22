@@ -14,8 +14,6 @@ export const TrackList: FC<Props> = ({ tracks }) => {
     (store) => store.playlist.filteredPlaylist
   );
 
-  console.log(filteredTracks);
-
   return (
     <div className={styles.content__playlist}>
       {filteredTracks.length >= 1 ? (

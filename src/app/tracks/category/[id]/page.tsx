@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from "../../../../hooks/store";
 import { useEffect, useState } from "react";
 import { getCategoryPlaylist } from "@api/categoryApi";
 import { setPlaylist } from "../../../../store/features/playlistSlise";
-import { TrackType } from "../../../../types/types";
 import { getTracks } from "@api/trackApi";
 
 export default function CategoryPage() {
@@ -19,8 +18,6 @@ export default function CategoryPage() {
   if (!access) {
     router.push("/singin");
   }
-
-  console.log(tracks);
 
   useEffect(() => {
     if (access) {

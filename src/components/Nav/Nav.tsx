@@ -10,7 +10,7 @@ import { quitUser } from "../../store/features/authSlice";
 export const Nav = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const [showNav, isShowNav] = useState<boolean>(false);
+  const [showNav, isShowNav] = useState(false);
 
   const userData = useAppSelector((store) => store.auth.user?.email);
 

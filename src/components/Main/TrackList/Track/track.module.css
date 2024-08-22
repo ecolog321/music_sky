@@ -13,12 +13,13 @@
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
     flex-direction: row;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin-bottom: 24px;
   }
 
   .playlist-title__col {
@@ -49,7 +50,6 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    width: 350px;
   }
   
   .track__title_image {
@@ -122,11 +122,20 @@
     line-height: 24px;
     color: #696969;
   }
+
+  .track__time {
+  width: 85px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  }
   
   .track__time_svg {
     width: 14px;
     height: 12px;
-    margin-right: 17px;
+    margin-right: 10px;
     fill: transparent;
     stroke: #696969;
   }
@@ -134,9 +143,12 @@
   .track__liked_svg {
     width: 14px;
     height: 12px;
-    margin-right: 17px;
+    margin-right: 10px;
     fill: #653596;
     stroke: #653596;
+    display: flex;
+   
+
   }
   
   .track__time_text {
@@ -168,5 +180,16 @@
     height: 20px;
     animation: glowing 1300ms infinite;
   }
- 
+
+  .col01 {
+    width: 447px;
+  }
+  
+  .col02 {
+    width: 321px;
+  }
+  
+  .col03 {
+    width: 225px;
+  }
 
