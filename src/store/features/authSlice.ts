@@ -49,7 +49,7 @@ type AuthStateType = {
 const initialState: AuthStateType = {
   user: {
     id: null,
-    email: localStorage.getItem("email") ? localStorage.getItem("email") : null,
+    email: localStorage ? ( localStorage.getItem("email") ? localStorage.getItem("email") : null) : null ,
     username: null,
     first_name: null,
     last_name: null,

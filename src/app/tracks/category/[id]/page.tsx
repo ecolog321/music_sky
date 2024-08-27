@@ -16,13 +16,9 @@ export default function CategoryPage() {
   const access = useAppSelector((store) => store.auth.tokens.access);
   const tracks = useAppSelector((store) => store.playlist.filteredPlaylist);
 
-  if (!access) {
-    router.push("/singin");
-  }
 
   useEffect(() => {
-    if (access) {
-      Promise.all([getTracks(), getCategoryPlaylist(access, id)]).then(
+      Promise.all([getTracks(), getCategoryPlaylist(id)]).then(
         ([tracksData, collectionId]) => {
           dispatch(setPlaylist({ tracks: tracksData }));
           const tracksId: number[] = collectionId.data.items;
@@ -32,7 +28,6 @@ export default function CategoryPage() {
           dispatch(setPlaylist({ tracks: newTracks }));
         }
       );
-    }
-  }, [dispatch, access]);
+  }, [dispatch, id]);
   return <CenterBlock tracks={tracks} />;
 }
