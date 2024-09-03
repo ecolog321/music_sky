@@ -11,7 +11,7 @@ export const useLikeTracks = (idTrack: number=-1) => {
   const tokens = useAppSelector((state) => state.auth.tokens);
   const user = useAppSelector((state) => state.auth.user);
   const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
-  const isLiked: boolean = likedTracks.includes(idTrack);
+  const isLiked: boolean = likedTracks?.includes(idTrack);
   const action = isLiked ? disLikeTrack : likeTrack;
 
   const handleLike = async (

@@ -12,6 +12,7 @@ type Props={
 export const ProgressBar: FC<Props>=({ max, value, step, onChange }) =>{
   return (
     <input
+    name='progress'
       className={styles.styledProgressInput} 
       type="range" 
       min="0" 

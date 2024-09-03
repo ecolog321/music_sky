@@ -4,6 +4,8 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/store";
 import { quitUser } from "../../../store/features/authSlice";
 import styles from "./user.module.css";
 import { useInitiateLikeTracks } from "../../../hooks/likes";
+import { clearTrack } from "../../../store/features/playlistSlise";
+import { useEffect } from "react";
 
 export const User = () => {
   useInitiateLikeTracks();
@@ -11,12 +13,16 @@ export const User = () => {
   const router = useRouter();
   const userEmail = useAppSelector((state) => state.auth.user?.email);
 
-  if (!userEmail) {
-    return null;
-  }
+  useEffect(()=>{
+    if (!userEmail) {
+      return;
+    }
+  },[userEmail])
+   
 
   const handleLogout = () => {
     dispatch(quitUser());
+    dispatch(clearTrack());
     router.push("/singin");
   };
 

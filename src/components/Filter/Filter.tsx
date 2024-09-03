@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { FC } from "react";
 import sharedStyles from "../shared.module.css";
 import styles from "./Filter.module.css";
@@ -27,20 +26,34 @@ export const Filter: FC<Props> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-
   const toogleFilter = (item: string) => {
 
-    if (value === "release") {
-      dispatch(setFilters({ order: item }));
-      return;
+    switch (value) {
+      case "author":
+        dispatch(
+          setFilters({
+            [value]: selected.includes(item)
+              ? selected.filter((el) => el !== item)
+              : [...selected, item],
+          })
+        );
+        return;
+      case "genre":
+        dispatch(
+          setFilters({
+            [value]: selected.includes(item)
+              ? selected.filter((el) => el !== item)
+              : [...selected, item],
+          })
+        );
+        return;
+      case "release":
+        dispatch(setFilters({ order: item }));
+        return;
+
+      default:
+        break;
     }
-    dispatch(
-      setFilters({
-        [value]: selected.includes(item)
-          ? selected.filter((el) => el !== item)
-          : [...selected, item],
-      })
-    );
   };
 
   return (
@@ -61,8 +74,8 @@ export const Filter: FC<Props> = ({
               <li
                 className={clsx(
                   selected.includes(item)
-                    ? styles.filter__items
-                    : styles.filre__items_pick
+                    ? styles.filter__items_pick
+                    : styles.filter__items
                 )}
                 key={id}
                 onClick={() => {

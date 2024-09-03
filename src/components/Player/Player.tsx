@@ -15,18 +15,14 @@ import { useLikeTracks } from "../../hooks/useLikeTrack";
 
 export const Player = () => {
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
-
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [isLoop, setIsLoop] = useState<boolean>(true);
-  const [currentTime, setCurrentTime] = useState<number>(0);
-  const [volume, setVolume] = useState<number>(0.5);
-
+  const [isLoop, setIsLoop] = useState(true);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [volume, setVolume] = useState(0.5);
   const duration = audioRef.current?.duration || 0;
   const isPlaying = useAppSelector((state) => state.playlist.isPlaying);
   const isShuffled = useAppSelector((state) => state.playlist.isShuffled);
-
   const dispatch = useAppDispatch();
-
   const { isLiked, handleLike } = useLikeTracks(currentTrack?._id);
 
   const tooglePlay = () => {
@@ -47,7 +43,6 @@ export const Player = () => {
 
   const toogleShuffle = () => {
     dispatch(setIsShuffled(!isShuffled));
-    console.log(isShuffled);
   };
 
   const handleNextSong = () => {

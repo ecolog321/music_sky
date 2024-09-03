@@ -8,10 +8,12 @@ import clsx from "clsx";
 import { TrackType } from "../../../types/types";
 import { Filter } from "@components/Filter/Filter";
 import { filterFresh } from "@components/Filter/Filter.data";
-import { FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useCallback, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/store";
-import { setPlaylist } from "../../../store/features/playlistSlise";
+import { setFilters, setPlaylist } from "../../../store/features/playlistSlise";
 import { saveUser } from "../../../store/features/authSlice";
+import { SearchField } from "./SearchFeild/SearchFeild";
+import { createUniqueArray } from "../../../utils/uniqueArray";
 
 type Props = {
   tracks: TrackType[];
@@ -23,8 +25,8 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
   const [release, setRelease] = useState<string[]>([]);
   const [genre, setGenre] = useState<string[]>([]);
   const [currentFilter, setCurrentFilter] = useState<string[]>([]);
+  const [searchField, setSearchField] = useState("");
   const dispatch = useAppDispatch();
-
   const filteredTracks = useAppSelector(
     (store) => store.playlist.filteredPlaylist
   );
@@ -32,40 +34,31 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
   const filterData = [
     {
       title: "исполнителю",
-      list: ["Первый", "Второй", "Третий"],
       value: "author",
       selected: useAppSelector((store) => store.playlist.filterOptions.author),
     },
     {
       title: "году выпуска",
-      list: ["По умолчанию", "Сначала новые", "Сначала старые"],
       value: "release",
       selected: [useAppSelector((store) => store.playlist.filterOptions.order)],
     },
     {
       title: "жанру",
-      list: ["рок", "классика", "поп"],
       value: "genre",
       selected: useAppSelector((store) => store.playlist.filterOptions.genre),
     },
   ];
 
-  const toogleAuthors = () =>
-    Array.from(new Set(tracks.map((track) => track.author)));
-  useEffect(() => {}, [filterValue]);
+  const handleSearchField = useCallback((e:ChangeEvent<HTMLInputElement>)=> setSearchField(e.target.value),[])
 
-  const toogleGenre = () =>
-    Array.from(new Set(tracks.map((track) => track.genre[0])));
-  useEffect(() => {}, [filterValue]);
+  const toogleAuthors = () =>createUniqueArray(tracks, "author");
 
-  const toogleRelease = () =>
-    Array.from(new Set(filterFresh.map((track) => track)));
-  useEffect(() => {}, [filterValue]);
+  const toogleGenre = () => createUniqueArray(tracks, "genre");
 
   useEffect(() => {
     setAuthors(toogleAuthors());
     setGenre(toogleGenre());
-    setRelease(toogleRelease());
+    setRelease(filterFresh);
   }, [tracks]);
 
   useEffect(() => {
@@ -73,26 +66,32 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
   }, [dispatch, tracks]);
 
   useEffect(() => {
+    dispatch(setFilters({ searchField }));
+  }, [searchField,dispatch]);
+
+  useEffect(() => {
     dispatch(
       saveUser([
-        localStorage.getItem("email"),
-        localStorage.getItem("access"),
-        localStorage.getItem("refresh"),
+        localStorage.getItem("email") || "",
+        localStorage.getItem("access") || "",
+        localStorage.getItem("refresh") || "",
       ])
     );
   }, [dispatch]);
 
   const changeFilterValue = (value: string) => {
-    setFilterValue((prev) => (prev === value ? null : value));
+    setFilterValue((prev)=>prev=== value ? null : value)
 
     switch (value) {
       case "author":
         setCurrentFilter(authors);
         break;
       case "genre":
+     
         setCurrentFilter(genre);
         break;
       case "release":
+   
         setCurrentFilter(release);
         break;
 
@@ -103,17 +102,7 @@ export const CenterBlock: FC<Props> = ({ tracks }) => {
 
   return (
     <div className={styles.main__centerblock}>
-      <div className={styles.centerblock__search}>
-        <svg className={styles.search__svg}>
-          <use xlinkHref="/img/icons/sprite.svg#icon-search"></use>
-        </svg>
-        <input
-          type="search"
-          className={styles.search__text}
-          placeholder="Поиск"
-          name="search"
-        />
-      </div>
+      <SearchField handleSearchField={handleSearchField} />
       <h2 className={styles.centerblock__h2}>Треки</h2>
       <div className={styles.centerblock__filter}>
         <div className={sharedStyles.filter__title}>Искать по:</div>

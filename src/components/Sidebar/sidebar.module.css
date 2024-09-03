@@ -38,6 +38,7 @@
   .sidebar__item {
     width: 250px;
     height: 150px;
+    cursor: pointer;
   }
 
 

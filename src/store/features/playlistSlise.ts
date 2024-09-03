@@ -61,6 +61,9 @@ const playlistSlice = createSlice({
         () => 0.5 - Math.random()
       );
     },
+    clearTrack: (state)=>{
+      state.currentTrack=null;
+    },
     setPlaylist: (state, action: PayloadAction<{ tracks: TrackType[] }>) => {
       state.currentPlaylist = action.payload.tracks;
       state.filteredPlaylist = action.payload.tracks;
@@ -105,9 +108,9 @@ const playlistSlice = createSlice({
       }>
     ) => {
       state.filterOptions = {
-        author: action.payload.author || state.filterOptions.author,
-        genre: action.payload.genre || state.filterOptions.genre,
-        order: action.payload.order || state.filterOptions.order,
+        author: action.payload.author ? action.payload.author : [],
+        genre: action.payload.genre ? action.payload.genre : [],
+        order: action.payload.order ? action.payload.order : "",
         searchField:
           action.payload.searchField || state.filterOptions.searchField,
       };
@@ -115,7 +118,7 @@ const playlistSlice = createSlice({
         const valueSearchField = track.name
           .toLowerCase()
           .includes(state.filterOptions.searchField.toLowerCase());
-        const valueAuthor =
+         const valueAuthor =
           state.filterOptions.author.length > 0
             ? state.filterOptions.author.includes(track.author)
             : true;
@@ -123,7 +126,7 @@ const playlistSlice = createSlice({
           state.filterOptions.genre.length > 0
             ? state.filterOptions.genre.includes(track.genre[0])
             : true;
-        return valueSearchField && valueAuthor && valueGenre;
+        return valueSearchField && valueGenre && valueAuthor;
       });
       switch (state.filterOptions.order) {
         case "Сначала новые":
@@ -158,8 +161,8 @@ const playlistSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(
       getFavoiteTracks.fulfilled,
-      (state, action) => {
-        state.likedTracks = action.payload.map((track:TrackType)=>track._id);
+      (state, action: PayloadAction<TrackType[]>) => {
+        state.likedTracks = action.payload?.map((track:TrackType)=>track._id);
       }
     );
   },
@@ -175,5 +178,6 @@ export const {
   setPlaylist,
   likeTrack,
   dislikeTrack,
+  clearTrack,
 } = playlistSlice.actions;
 export const playlistReducer = playlistSlice.reducer;

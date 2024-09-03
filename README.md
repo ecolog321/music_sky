@@ -14,23 +14,31 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Открыть приложение
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Вы можете открыть браузер по адресу [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+## Функциональность
+Для взаимодействия доступны следующие страницы:
 
-To learn more about Next.js, take a look at the following resources:
+1. Главная ["/tracks"]:
+    — здесь можно увидеть спискок всех треков в приложении;
+    — прослушать любой трек на экране;
+    — переключать вперед и назад, ставить на паузу, перемешивать список треков или закицливать трек;
+    — есть функционал поисковой строки, фильтры по автору, жанру или новизне;
+    — добавление трека в избранное - только авторизованному пользователю;
+    — просмотр подборок треков в sidebar;
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Страница регестрации ["/singup"]:
+    — регистрация нового пользователя с почтой и паролем;
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+3. Страница входа ["/singin"]:
+    — войти в уже имеющийся аккаунт приложения;
 
-## Deploy on Vercel
+4. Страница избранных треков ["/tracks/favorite"]:
+    — только для авторизованных пользователей;
+    — здесь можно увидеть спискок избранных треков (поставлено "сердечко");
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+5. Страница подробок ["/tracks/category/ID"]:
+    — здесь можно список треков определенной тематики;
